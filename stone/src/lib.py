@@ -5,9 +5,9 @@ from screeninfo import get_monitors
 
 width = get_monitors()[0].width
 height = get_monitors()[0].height
-caption = "stone"
-fps = 60
-color = "white"
+CAPTION = "stone"
+FPS = 60
+COLOR = "white"
 
 
 def collision(self, sub, obj):

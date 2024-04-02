@@ -1,5 +1,13 @@
-from src import lib
+"""
+File: sprites.py
+Author: Oliver Tzeng
+Email: hsnu.crc46th@gmail.com
+Github: https://github.com/hsnucrc46
+Description: Sprites(objects) declaration
+"""
+
 from random import randint
+from src import lib
 import pygame
 
 
