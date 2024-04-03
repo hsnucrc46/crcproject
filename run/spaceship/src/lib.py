@@ -10,7 +10,7 @@ from screeninfo import get_monitors
 
 width = get_monitors()[0].width
 height = get_monitors()[0].height
-CAPTION = "stone"
+CAPTION = "spaceship"
 FPS = 60
 COLOR = "white"
 

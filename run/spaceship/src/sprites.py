@@ -12,6 +12,9 @@ import pygame
 
 
 class rabbit:
+    """
+    The player
+    """
     def __init__(self, game):
         self.game = game
         self.pos_x = lib.width * 0.45
@@ -41,6 +44,9 @@ class rabbit:
 
 
 class stone:
+    """
+    The enemy
+    """
     def __init__(self, game):
         self.game = game
         self.pos_x = randint(0, lib.width)
