@@ -38,6 +38,7 @@ class rabbit:
             self.pos_x = 0
         elif self.pos_x >= src.lib.width - 100:
             self.pos_x = src.lib.width - 100
+        self.rect.topleft = (self.pos_x, self.pos_y)
 
     def draw(self):
         self.game.screen.blit(self.irabbit, (self.pos_x, self.pos_y))
@@ -60,6 +61,7 @@ class stone:
     def update(self):
         self.speed_y += self.acceleration_y
         self.pos_y += self.speed_y
+        self.rect.topleft = (self.pos_x, self.pos_y)
 
     def draw(self):
         self.game.screen.blit(self.istone, (self.pos_x, self.pos_y))

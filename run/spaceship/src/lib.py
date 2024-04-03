@@ -18,7 +18,6 @@ COLOR = "white"
 def collision(sub, obj):
     """
     Check collision using rect attribute from your object.
-    You can get rect using Surface.get_rect()
     """
     pos_sub = sub.rect.topleft
     pos_obj = obj.rect.topleft

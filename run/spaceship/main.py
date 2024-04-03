@@ -51,7 +51,7 @@ class Game:
             if src.lib.collision(self.player, s):
                 print("You Lost")
                 self.playing = False
-                break
+                return
             if s.pos_y >= src.lib.height:
                 self.stones.remove(s)
 
@@ -74,7 +74,8 @@ class Game:
             self.update()
             self.draw()
             self.clock.tick(src.lib.FPS)
-
+            if not self.playing:
+                break
 
 game = Game()
 game.run()
