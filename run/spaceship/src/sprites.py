@@ -7,7 +7,7 @@ Description: Sprites(objects) declaration
 """
 
 from random import randint
-from src import lib
+import src.lib
 import pygame
 
 
@@ -17,11 +17,11 @@ class rabbit:
     """
     def __init__(self, game):
         self.game = game
-        self.pos_x = lib.width * 0.45
-        self.pos_y = lib.height * 0.75
+        self.pos_x = src.lib.width * 0.45
+        self.pos_y = src.lib.height * 0.75
         self.speed_x = 50
         self.direction_x = 0
-        self.irabbit = pygame.image.load("src/rabbit.png")
+        self.irabbit = pygame.image.load("run/spaceship/src/rabbit.png")
         self.rect = self.irabbit.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
@@ -36,8 +36,8 @@ class rabbit:
         self.pos_x += self.direction_x * self.speed_x
         if self.pos_x <= 0:
             self.pos_x = 0
-        elif self.pos_x >= lib.width - 100:
-            self.pos_x = lib.width - 100
+        elif self.pos_x >= src.lib.width - 100:
+            self.pos_x = src.lib.width - 100
 
     def draw(self):
         self.game.screen.blit(self.irabbit, (self.pos_x, self.pos_y))
@@ -49,11 +49,11 @@ class stone:
     """
     def __init__(self, game):
         self.game = game
-        self.pos_x = randint(0, lib.width)
+        self.pos_x = randint(0, src.lib.width)
         self.pos_y = -50
         self.speed_y = 0
-        self.acceleration_y = 9.8 / lib.FPS
-        self.istone = pygame.image.load("src/stone.png")
+        self.acceleration_y = 9.8 / src.lib.FPS
+        self.istone = pygame.image.load("run/spaceship/src/stone.png")
         self.rect = self.istone.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
