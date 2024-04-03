@@ -74,8 +74,6 @@ class Game:
             self.update()
             self.draw()
             self.clock.tick(src.lib.FPS)
-            if not self.playing:
-                break
 
 game = Game()
 game.run()
