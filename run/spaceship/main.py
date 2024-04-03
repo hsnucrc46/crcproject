@@ -8,10 +8,12 @@ Description: Interacts sprites declared in src/sprites.py
 
 import sys
 import pygame
+import functools
 from random import randint
 from rich import print
 import src.sprites
 import src.lib
+
 
 class Game:
     """
@@ -20,16 +22,16 @@ class Game:
 
     def __init__(self):
         pygame.init()
-
         self.screen = pygame.display.set_mode((src.lib.width, src.lib.height))
         pygame.display.set_caption(src.lib.CAPTION)
-
         self.clock = pygame.time.Clock()
+
+    def new(self):
         self.point = 0
-        self.playing = True
         self.last_spawn_stone = pygame.time.get_ticks()
         self.stones = []
         self.player = src.sprites.rabbit(self)
+        self.run()
 
     def events(self):
         """
@@ -37,7 +39,7 @@ class Game:
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.playing = False
+                src.lib.quitgame()
 
     def update(self):
         """
@@ -45,7 +47,9 @@ class Game:
         """
         self.player.update(pygame.key.get_pressed())
 
-        if pygame.time.get_ticks() - self.last_spawn_stone >= randint(src.lib.min, src.lib.max):
+        if pygame.time.get_ticks() - self.last_spawn_stone >= randint(
+            src.lib.min, src.lib.max
+        ):
             self.stones.append(src.sprites.stone(self))
             self.last_spawn_stone = pygame.time.get_ticks()
 
@@ -53,11 +57,14 @@ class Game:
             s.update()
             if src.lib.collision(self.player, s):
                 if not self.point:
-                    print("[bold magenta]You lost :skull:[/bold magenta] with", self.point, "points in total")
+                    print(
+                        "[b magenta]你輸了[/b magenta]:skull:，最後得了",
+                        self.point,
+                        "分",
+                    )
                 else:
-                    print("[bold magenta]You lost[/bold magenta] with", self.point, "points in total")
-                self.playing = False
-                return
+                    print("[b magenta]你輸了[/b magenta]，最後得了", self.point, "分")
+                src.lib.quitgame()
             if s.pos_y >= src.lib.height:
                 self.stones.remove(s)
                 self.point += 1
@@ -76,13 +83,17 @@ class Game:
         """
         what actually needs to be done after initializing the game
         """
-        while self.playing:
-            self.events()
-            self.update()
-            self.draw()
-            self.clock.tick(src.lib.FPS)
+        self.events()
+        self.update()
+        self.draw()
+        self.clock.tick(src.lib.FPS)
+
+
+def bind_method(method, *args, **kwargs):
+    return lambda: method(*args, **kwargs)
+
 
 game = Game()
+bound_new = functools.partial(bind_method, game.new)
+src.lib.intro(game.clock, game.screen, bound_new)
 game.run()
-pygame.quit()
-sys.exit()
