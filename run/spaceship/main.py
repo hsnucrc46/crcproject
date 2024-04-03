@@ -14,7 +14,7 @@ from rich.markdown import Markdown
 import src.sprites
 import src.lib
 
-with open("src/story.md") as readme:
+with open("src/INTRO.md") as readme:
     markdown = Markdown(readme.read())
 print(markdown)
 
