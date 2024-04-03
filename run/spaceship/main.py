@@ -9,14 +9,9 @@ Description: Interacts sprites declared in src/sprites.py
 import sys
 import pygame
 from random import randint
-from rich import print, table
-from rich.markdown import Markdown
+from rich import print
 import src.sprites
 import src.lib
-
-with open("src/INTRO.md") as readme:
-    markdown = Markdown(readme.read())
-print(markdown)
 
 class Game:
     """
