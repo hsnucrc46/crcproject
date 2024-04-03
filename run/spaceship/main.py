@@ -8,8 +8,15 @@ Description: Interacts sprites declared in src/sprites.py
 
 import sys
 import pygame
+from random import randint
+from rich import print, table
+from rich.markdown import Markdown
 import src.sprites
 import src.lib
+
+with open("src/story.md") as readme:
+    markdown = Markdown(readme.read())
+print(markdown)
 
 class Game:
     """
@@ -23,6 +30,7 @@ class Game:
         pygame.display.set_caption(src.lib.CAPTION)
 
         self.clock = pygame.time.Clock()
+        self.point = 0
         self.playing = True
         self.last_spawn_stone = pygame.time.get_ticks()
         self.stones = []
@@ -42,18 +50,22 @@ class Game:
         """
         self.player.update(pygame.key.get_pressed())
 
-        if pygame.time.get_ticks() - self.last_spawn_stone >= 1000:
+        if pygame.time.get_ticks() - self.last_spawn_stone >= randint(src.lib.min, src.lib.max):
             self.stones.append(src.sprites.stone(self))
             self.last_spawn_stone = pygame.time.get_ticks()
 
         for s in self.stones:
             s.update()
             if src.lib.collision(self.player, s):
-                print("You Lost")
+                if not self.point:
+                    print("[bold magenta]You lost :skull:[/bold magenta] with", self.point, "points in total")
+                else:
+                    print("[bold magenta]You lost[/bold magenta] with", self.point, "points in total")
                 self.playing = False
                 return
             if s.pos_y >= src.lib.height:
                 self.stones.remove(s)
+                self.point += 1
 
     def draw(self):
         """
