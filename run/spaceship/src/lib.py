@@ -15,7 +15,7 @@ FPS = 60
 COLOR = "white"
 
 
-def collision(self, sub, obj):
+def collision(sub, obj):
     """
     Check collision using rect attribute from your object.
     You can get rect using Surface.get_rect()

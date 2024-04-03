@@ -51,6 +51,7 @@ class Game:
             if src.lib.collision(self.player, s):
                 print("You Lost")
                 self.playing = False
+                break
             if s.pos_y >= src.lib.height:
                 self.stones.remove(s)
 

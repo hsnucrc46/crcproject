@@ -21,7 +21,7 @@ class rabbit:
         self.pos_y = src.lib.height * 0.75
         self.speed_x = 50
         self.direction_x = 0
-        self.irabbit = pygame.image.load("run/spaceship/src/rabbit.png")
+        self.irabbit = pygame.image.load("src/rabbit.png")
         self.rect = self.irabbit.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
@@ -53,7 +53,7 @@ class stone:
         self.pos_y = -50
         self.speed_y = 0
         self.acceleration_y = 9.8 / src.lib.FPS
-        self.istone = pygame.image.load("run/spaceship/src/stone.png")
+        self.istone = pygame.image.load("src/stone.png")
         self.rect = self.istone.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
