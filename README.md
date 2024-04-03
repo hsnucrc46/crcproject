@@ -4,4 +4,12 @@
 
 ## 預定成品形式
 * `Python `
-* GUI
+* GUI Pygame
+
+- 資料夾形式
+---./
+ |  	|shield(遊戲一)
+ | 		|
+ ---run--
+ 		|
+        |spaceship(遊戲二)
