@@ -46,7 +46,7 @@ class stone:
         self.pos_x = randint(0, lib.width)
         self.pos_y = -50
         self.speed_y = 0
-        self.acceleration_y = 9.8 / lib.fps
+        self.acceleration_y = 9.8 / lib.FPS
         self.istone = pygame.image.load("src/stone.png")
         self.rect = self.istone.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)

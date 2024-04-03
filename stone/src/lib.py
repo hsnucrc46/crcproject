@@ -1,5 +1,10 @@
-# Copyright (c) 2024 HSNU CRC. All Rights Reserved.
-# created: 2024/03/06 13/38
+"""
+File: lib.py
+Author: Oliver Tzeng
+Email: hsnucrc46@gmail.com
+Github: https://github.com/hsnucrc46
+Description: This file is a preference file, set your color, fps, player speed and more
+"""
 
 from screeninfo import get_monitors
 
@@ -22,15 +27,18 @@ def collision(self, sub, obj):
     width_obj = obj.rect.width
     height_obj = obj.rect.height
 
-    # Check if objects are colliding along the y-axis
+    """
+    Check if objects are colliding along the y-axis
+    """
     y_colliding = (
         pos_obj[1] < pos_sub[1] + height_sub and pos_obj[1] + height_obj >= pos_sub[1]
     )
 
-    # Check if objects are colliding along the x-axis
+    """
+    Check if objects are colliding along the y-axis
+    """
     x_colliding = (
         pos_obj[0] < pos_sub[0] + width_sub and pos_obj[0] + width_obj >= pos_sub[0]
     )
 
-    # Check if objects are colliding in both x and y directions
     return y_colliding and x_colliding

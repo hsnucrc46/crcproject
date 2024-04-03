@@ -8,8 +8,8 @@ Description: Interacts sprites declared in src/sprites.py
 
 import sys
 import pygame
-from src import sprites, lib
-
+import src.sprites
+import src.lib
 
 class Game:
     """
@@ -19,14 +19,14 @@ class Game:
     def __init__(self):
         pygame.init()
 
-        self.screen = pygame.display.set_mode((lib.width, lib.height))
-        pygame.display.set_caption(lib.CAPTION)
+        self.screen = pygame.display.set_mode((src.width, src.height))
+        pygame.display.set_caption(src.CAPTION)
 
         self.clock = pygame.time.Clock()
         self.playing = True
         self.last_spawn_stone = pygame.time.get_ticks()
         self.stones = []
-        self.player = sprites.rabbit(self)
+        self.player = src.rabbit(self)
 
     def events(self):
         """
@@ -43,22 +43,22 @@ class Game:
         self.player.update(pygame.key.get_pressed())
 
         if pygame.time.get_ticks() - self.last_spawn_stone >= 1000:
-            self.stones.append(sprites.stone(self))
+            self.stones.append(src.stone(self))
             self.last_spawn_stone = pygame.time.get_ticks()
 
         for s in self.stones:
             s.update()
-            if self.lib.collision(self.player, s):
+            if self.src.collision(self.player, s):
                 print("You Lost")
                 self.playing = False
-            if s.pos_y >= lib.height:
+            if s.pos_y >= src.height:
                 self.stones.remove(s)
 
     def draw(self):
         """
         update to screen
         """
-        self.screen.fill(lib.COLOR)
+        self.screen.fill(src.COLOR)
         self.player.draw()
         for s in self.stones:
             s.draw()
@@ -72,7 +72,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
-            self.clock.tick(lib.FPS)
+            self.clock.tick(src.FPS)
 
 
 game = Game()
