@@ -3,11 +3,12 @@
 # 遊戲 2 待辦事項：
 | 組員名稱 | 事項 |
 | ------------- | -------------- |
-| @olivertzeng | 計算躲避次數 |
-| Bar | 時間條 |
-| Baz | 血量條以及遊戲開始/Game Over 畫面 |
-| Foo | 分數計算 |
-| Bar | 反擊功能 |
+| @olivertzeng | 分數計算 |
+| @olivertzeng | 血量條以及遊戲開始/Game Over 畫面 |
+| Foo | 時間條 |
+| Bar | 血量條 |
+| Baz | 反擊功能 |
+| Foo | 故事頁面（利用 [rich](https://github.com/textualize/rich) ）|
 
 
 ## 規則
