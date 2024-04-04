@@ -1,4 +1,6 @@
 # 遊戲整合待辦事項：
+| 組員名稱 | 事項 |
+| ------------- | -------------- |
 | Foo | 故事頁面（利用 [rich](https://github.com/textualize/rich) ）`run/main.py` |
 # 遊戲 1 待辦事項：
 
