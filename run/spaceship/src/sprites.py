@@ -1,6 +1,6 @@
 """
 File: sprites.py
-Author: Oliver Tzeng
+Author: Crystal Diamond
 Email: hsnu.crc46th@gmail.com
 Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
@@ -21,7 +21,7 @@ class spaceship:
         self.pos_y = src.lib.height * 0.75
         self.speed_x = 50
         self.direction_x = 0
-        self.ispaceship = pygame.image.load("src/spaceship.png")
+        self.ispaceship = pygame.image.load("run/spaceship/src/spaceship.png")
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
@@ -54,7 +54,7 @@ class comet:
         self.pos_y = -50
         self.speed_y = 0
         self.acceleration_y = 9.8 / src.lib.FPS
-        self.icomet = pygame.image.load("src/comet.png")
+        self.icomet = pygame.image.load("run/spaceship/src/comet.png")
         self.rect = self.icomet.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 

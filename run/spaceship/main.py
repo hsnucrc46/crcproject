@@ -87,6 +87,7 @@ class Game:
         self.events()
         self.update()
         self.draw()
+        src.lib.time_bar(self.screen, self.clock.get_time())
         self.clock.tick(src.lib.FPS)
 
 
