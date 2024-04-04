@@ -91,7 +91,7 @@ def intro(clock, screen, action):
             height / 5,
             "white",
             "green",
-            action(),
+            action=lambda: action(),
         )
         button(
             screen,
