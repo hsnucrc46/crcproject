@@ -109,5 +109,6 @@ def intro(clock, screen, action):
 
 
 def quitgame():
+    intro = False
     pygame.quit()
     sys.exit()
