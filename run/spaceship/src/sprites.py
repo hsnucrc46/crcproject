@@ -11,7 +11,7 @@ import src.lib
 import pygame
 
 
-class rabbit:
+class spaceship:
     """
     The player
     """
@@ -21,8 +21,8 @@ class rabbit:
         self.pos_y = src.lib.height * 0.75
         self.speed_x = 50
         self.direction_x = 0
-        self.irabbit = pygame.image.load("src/rabbit.png")
-        self.rect = self.irabbit.get_rect()
+        self.ispaceship = pygame.image.load("src/spaceship.png")
+        self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def update(self, keys):
@@ -41,10 +41,10 @@ class rabbit:
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def draw(self):
-        self.game.screen.blit(self.irabbit, (self.pos_x, self.pos_y))
+        self.game.screen.blit(self.ispaceship, (self.pos_x, self.pos_y))
 
 
-class stone:
+class comet:
     """
     The enemy
     """
@@ -54,8 +54,8 @@ class stone:
         self.pos_y = -50
         self.speed_y = 0
         self.acceleration_y = 9.8 / src.lib.FPS
-        self.istone = pygame.image.load("src/stone.png")
-        self.rect = self.istone.get_rect()
+        self.icomet = pygame.image.load("src/comet.png")
+        self.rect = self.icomet.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def update(self):
@@ -64,4 +64,4 @@ class stone:
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def draw(self):
-        self.game.screen.blit(self.istone, (self.pos_x, self.pos_y))
+        self.game.screen.blit(self.icomet, (self.pos_x, self.pos_y))

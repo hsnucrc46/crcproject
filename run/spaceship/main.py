@@ -27,10 +27,11 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def new(self):
+        src.lib.intro = False
         self.point = 0
-        self.last_spawn_stone = pygame.time.get_ticks()
-        self.stones = []
-        self.player = src.sprites.rabbit(self)
+        self.last_spawn_comet = pygame.time.get_ticks()
+        self.comets = []
+        self.player = src.sprites.spaceship(self)
         self.run()
 
     def events(self):
@@ -47,13 +48,13 @@ class Game:
         """
         self.player.update(pygame.key.get_pressed())
 
-        if pygame.time.get_ticks() - self.last_spawn_stone >= randint(
+        if pygame.time.get_ticks() - self.last_spawn_comet >= randint(
             src.lib.min, src.lib.max
         ):
-            self.stones.append(src.sprites.stone(self))
-            self.last_spawn_stone = pygame.time.get_ticks()
+            self.comets.append(src.sprites.comet(self))
+            self.last_spawn_comet = pygame.time.get_ticks()
 
-        for s in self.stones:
+        for s in self.comets:
             s.update()
             if src.lib.collision(self.player, s):
                 if not self.point:
@@ -66,7 +67,7 @@ class Game:
                     print("[b magenta]你輸了[/b magenta]，最後得了", self.point, "分")
                 src.lib.quitgame()
             if s.pos_y >= src.lib.height:
-                self.stones.remove(s)
+                self.comets.remove(s)
                 self.point += 1
 
     def draw(self):
@@ -75,7 +76,7 @@ class Game:
         """
         self.screen.fill(src.lib.COLOR)
         self.player.draw()
-        for s in self.stones:
+        for s in self.comets:
             s.draw()
         pygame.display.update()
 
