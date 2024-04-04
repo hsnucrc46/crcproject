@@ -9,7 +9,7 @@
 | @olivertzeng | ⬜血量條以及遊戲開始/Game Over 文字(rich) `run/spaceship/main.py` |
 | @Crystal-Diamond | ⬜時間條 `run/spaceship/src/lib.py` |
 | @314hello | ⬜血量條 `run/spaceship/src/lib.py` |
-| Baz | ⬜反擊功能 `run/spaceship/src/lib.py` |
+| @DevBoring | ⬜反擊功能 `run/spaceship/src/lib.py` |
 
 ### P.S.
 - 未完成 => ⬜
