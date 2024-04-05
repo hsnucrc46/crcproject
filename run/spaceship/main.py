@@ -1,6 +1,6 @@
 """
 File: main.py
-Author: Oliver Tzeng, Crystal Diamond
+Author: Oliver Tzeng, Crystal Diamond, 314hello
 Email: hsnu.crc46th@gmail.com
 Github: https://github.com/hsnucrc46
 Description: Interacts sprites declared in src/sprites.py
@@ -53,6 +53,8 @@ class Game:
         for s in self.comets:
             s.update()
             if src.lib.collision(self.player, s):
+                self.player.health -= 10
+                self.comets.remove(s)
                 if not self.point:
                     print(
                         "[b magenta]你輸了[/b magenta]:skull:，最後得了",
@@ -65,6 +67,17 @@ class Game:
             if s.pos_y >= src.lib.height:
                 self.comets.remove(s)
                 self.point += 1
+        
+        if (self.player.health==0):
+            if not self.point:
+                    print(
+                        "[b magenta]你輸了[/b magenta]:skull:，最後得了",
+                        self.point,
+                        "分",
+                    )
+            else:
+                print("[b magenta]你輸了[/b magenta]，最後得了", self.point, "分")
+            src.lib.quitgame()
 
     def draw(self):
         """
