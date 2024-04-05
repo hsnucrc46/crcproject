@@ -8,7 +8,7 @@
 | 組員名稱 | 事項 |
 | ------------- | -------------- |
 | [olivertzneg](https://github.com/olivertzeng)  | ✅分數計算 |
-| [olivertzneg](https://github.com/olivertzeng) | ⬜️◻️遊戲開始/Game Over 文字(rich) `run/spaceship/main.py` |
+| [olivertzneg](https://github.com/olivertzeng) | ⬜️遊戲開始/Game Over 文字(rich) `run/spaceship/main.py` |
 | [DevBoring](https://github.com/devboring) | ⬜修復遊戲開始按鈕功能 `run/spaceship/main.py` |
 | [Crystal-Diamond](https://github.com/crystal-diamond) | ⬜時間條 `run/spaceship/src/lib.py` |
 | [314hello](https://github.com/314hello) | ⬜玩家血量條 `run/spaceship/src/lib.py` |
