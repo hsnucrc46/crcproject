@@ -103,7 +103,7 @@ def intro(clock, screen, action, bintro):
             height / 5,
             "white",
             "green",
-            action=action.run(),
+            action=action.run,
         )
         button(
             screen,
@@ -114,7 +114,7 @@ def intro(clock, screen, action, bintro):
             height / 5,
             "white",
             "red",
-            action=quitgame(),
+            action=quitgame,
         )
         pygame.display.update()
         clock.tick(FPS)
