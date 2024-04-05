@@ -111,14 +111,14 @@ def intro(clock, screen, action):
 
 def time_bar(screen, clock, time, max_time):
     pygame.draw.rect(
-        screen, (0, 0, 0), (width * 2 / 5, height / 10, width / 5, height / 15)
+        screen, (0, 0, 0), (width * 2 / 5, height / 10, width / 5, height / 30)
     )
     draw_text(
-        screen, str(int(time/FPS)), 50, "white", width / 2, height / 15 * 2
+        screen, str(int(time/FPS)), 50, "white", width / 2, height / 60 * 7
     )
     if time < max_time:
         pygame.draw.rect(
-            screen, (127, 255, 127), (width * 2 / 5, height / 10, width / 5 * (max_time - time) / max_time, height / 15,)
+            screen, (127, 255, 127), (width * 2 / 5, height / 10, width / 5 * (max_time - time) / max_time, height / 15)
         )
     else:
         quitgame()
