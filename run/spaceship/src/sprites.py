@@ -1,6 +1,6 @@
 """
 File: sprites.py
-Author: Crystal Diamond
+Author: Crystal Diamond, Oliver Tzeng
 Email: hsnu.crc46th@gmail.com
 Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
@@ -15,6 +15,7 @@ class spaceship:
     """
     The player
     """
+
     def __init__(self, game):
         self.game = game
         self.pos_x = src.lib.width * 0.45
@@ -48,6 +49,7 @@ class comet:
     """
     The enemy
     """
+
     def __init__(self, game):
         self.game = game
         self.pos_x = randint(0, src.lib.width)

@@ -1,6 +1,6 @@
 """
 File: main.py
-Author: Oliver
+Author: Oliver Tzeng, Crystal Diamond
 Email: hsnu.crc46th@gmail.com
 Github: https://github.com/hsnucrc46
 Description: Interacts sprites declared in src/sprites.py
