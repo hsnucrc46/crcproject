@@ -82,8 +82,7 @@ def intro(clock, screen, action):
     """
     startscreen
     """
-    intro = True
-    while intro:
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quitgame()
@@ -98,6 +97,7 @@ def intro(clock, screen, action):
             height / 5,
             "white",
             "green",
+            action=action.run(),
         )
         button(
             screen,
@@ -108,7 +108,6 @@ def intro(clock, screen, action):
             height / 5,
             "white",
             "red",
-            action=quitgame,
         )
         pygame.display.update()
         clock.tick(FPS)

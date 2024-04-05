@@ -4,17 +4,14 @@ Author: Crystal Diamond, Oliver Tzeng, 314hello
 Email: hsnu.crc46th@gmail.com
 Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
-"""
 
-'''
-血量條 :
-1. player enemy collide
+Healthbar:
+    1. player enemy collide
 2. draw healthbar
 3. if health=0
-'''
+"""
 
 from random import randint
-from turtle import Screen
 import src.lib
 import pygame
 
@@ -34,10 +31,12 @@ class spaceship:
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
         self.health = 100
-    
-    def healthbar(self,screen):
-        pygame.draw.rect(screen,(255,0,0),50,50,50,10)
-        pygame.draw.rect(screen,(0,255,0),50,50,(self.health/100)*50,10)
+
+    def healthbar(self, screen):
+        pygame.draw.rect(screen, (255, 0, 0), (50, 50, 50, 10))  # Draw a background bar
+        pygame.draw.rect(
+            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 50), 10)
+        )
 
     def update(self, keys):
         if keys[pygame.K_LEFT]:
@@ -54,10 +53,9 @@ class spaceship:
             self.pos_x = src.lib.width - 100
         self.rect.topleft = (self.pos_x, self.pos_y)
 
-    def draw(self,screen):
+    def draw(self, screen):
         self.game.screen.blit(self.ispaceship, (self.pos_x, self.pos_y))
         self.healthbar(screen)
-
 
 
 class comet:

@@ -7,7 +7,6 @@ Description: Interacts sprites declared in src/sprites.py
 """
 
 import pygame
-import functools
 from random import randint
 from rich import print
 import src.sprites
@@ -24,7 +23,6 @@ class Game:
         self.screen = pygame.display.set_mode((src.lib.width, src.lib.height))
         pygame.display.set_caption(src.lib.CAPTION)
         self.clock = pygame.time.Clock()
-        src.lib.intro = False
         self.point = 0
         self.last_spawn_comet = pygame.time.get_ticks()
         self.comets = []
@@ -67,14 +65,14 @@ class Game:
             if s.pos_y >= src.lib.height:
                 self.comets.remove(s)
                 self.point += 1
-        
-        if (self.player.health==0):
+
+        if self.player.health == 0:
             if not self.point:
-                    print(
-                        "[b magenta]你輸了[/b magenta]:skull:，最後得了",
-                        self.point,
-                        "分",
-                    )
+                print(
+                    "[b magenta]你輸了[/b magenta]:skull:，最後得了",
+                    self.point,
+                    "分",
+                )
             else:
                 print("[b magenta]你輸了[/b magenta]，最後得了", self.point, "分")
             src.lib.quitgame()
@@ -84,7 +82,7 @@ class Game:
         update to screen
         """
         self.screen.fill(src.lib.COLOR)
-        self.player.draw()
+        self.player.draw(self.screen)
         for s in self.comets:
             s.draw()
         pygame.display.update()
@@ -100,11 +98,6 @@ class Game:
         self.clock.tick(src.lib.FPS)
 
 
-def bind_method(method, *args, **kwargs):
-    return lambda: method(*args, **kwargs)
-
-
 game = Game()
-bound_run = functools.partial(bind_method, game.run)
-src.lib.intro(game.clock, game.screen, bound_run)
+src.lib.intro(game.clock, game.screen, game)
 game.run()
