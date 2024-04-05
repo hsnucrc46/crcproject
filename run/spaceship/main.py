@@ -6,11 +6,11 @@ Github: https://github.com/hsnucrc46
 Description: Interacts sprites declared in src/sprites.py
 """
 
-import pygame
 from random import randint
-from rich import print
-import src.sprites
+
+import pygame
 import src.lib
+import src.sprites
 
 
 class Game:
@@ -20,13 +20,14 @@ class Game:
 
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((src.lib.width, src.lib.height))
         pygame.display.set_caption(src.lib.CAPTION)
         self.clock = pygame.time.Clock()
-        self.point = 0
-        self.last_spawn_comet = pygame.time.get_ticks()
         self.comets = []
+        self.intro = True
+        self.last_spawn_comet = pygame.time.get_ticks()
         self.player = src.sprites.spaceship(self)
+        self.point = 0
+        self.screen = pygame.display.set_mode((src.lib.width, src.lib.height))
 
     def events(self):
         """
@@ -34,7 +35,11 @@ class Game:
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                src.lib.quitgame()
+                src.lib.quitgame(self.point)
+
+    def new(self):
+        self.intro = False
+        self.run()
 
     def update(self):
         """
@@ -51,31 +56,14 @@ class Game:
         for s in self.comets:
             s.update()
             if src.lib.collision(self.player, s):
-                self.player.health -= 10
+                self.player.health += src.lib.step
                 self.comets.remove(s)
-                if not self.point:
-                    print(
-                        "[b magenta]你輸了[/b magenta]:skull:，最後得了",
-                        self.point,
-                        "分",
-                    )
-                else:
-                    print("[b magenta]你輸了[/b magenta]，最後得了", self.point, "分")
-                src.lib.quitgame()
             if s.pos_y >= src.lib.height:
                 self.comets.remove(s)
                 self.point += 1
 
         if self.player.health == 0:
-            if not self.point:
-                print(
-                    "[b magenta]你輸了[/b magenta]:skull:，最後得了",
-                    self.point,
-                    "分",
-                )
-            else:
-                print("[b magenta]你輸了[/b magenta]，最後得了", self.point, "分")
-            src.lib.quitgame()
+            src.lib.quitgame(self.point)
 
     def draw(self):
         """
@@ -99,5 +87,5 @@ class Game:
 
 
 game = Game()
-src.lib.intro(game.clock, game.screen, game)
-game.run()
+src.lib.intro(game.clock, game.screen, game, game.intro)
+src.lib.quitgame(game.point)

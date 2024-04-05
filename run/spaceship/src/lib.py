@@ -6,22 +6,28 @@ Github: https://github.com/hsnucrc46
 Description: This file is a preference file, set your color, fps, player speed and more
 """
 
-from screeninfo import get_monitors
 import pygame
-
-width = get_monitors()[0].width
-height = get_monitors()[0].height
-min = 250
-max = 2000
-max_time = 60
-time = 0
+from rich import print
+from screeninfo import get_monitors
 
 CAPTION = "太空防衛戰"
-FPS = 60
 COLOR = "black"
+FPS = 60
+health = 100
+height = get_monitors()[0].height
+width = get_monitors()[0].width
+max = 2000
+max_time = 60 * 60
+min = 250
+step = -10
+time = 0
 
 
-def quitgame():
+def quitgame(point=-1):
+    if not point:
+        print("[b magenta]你輸了[/b magenta]:skull:，最後得了 0 分")
+    elif not point == -1:
+        print("[b magenta]你輸了[/b magenta]，最後得了", point, "分")
     pygame.quit()
     quit()
 
@@ -30,12 +36,12 @@ def collision(sub, obj):
     """
     Check collision using rect attribute from your object.
     """
-    pos_sub = sub.rect.topleft
-    pos_obj = obj.rect.topleft
-    width_sub = sub.rect.width
+    height_obj = obj.rect.height
     height_sub = sub.rect.height
     width_obj = obj.rect.width
-    height_obj = obj.rect.height
+    width_sub = sub.rect.width
+    pos_obj = obj.rect.topleft
+    pos_sub = sub.rect.topleft
 
     """
     Check if objects are colliding along the y-axis
@@ -55,7 +61,7 @@ def collision(sub, obj):
 
 
 def button(
-    screen, text, posX, posY, width, height, inActiveColor, activeColor, action=quitgame
+    screen, text, posX, posY, width, height, inActiveColor, activeColor, action=None
 ):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -78,11 +84,11 @@ def draw_text(screen, text, size, color, x, y):
     screen.blit(text_surface, text_rect)
 
 
-def intro(clock, screen, action):
+def intro(clock, screen, action, bintro):
     """
     startscreen
     """
-    while True:
+    while bintro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quitgame()
@@ -108,6 +114,7 @@ def intro(clock, screen, action):
             height / 5,
             "white",
             "red",
+            action=quitgame(),
         )
         pygame.display.update()
         clock.tick(FPS)
