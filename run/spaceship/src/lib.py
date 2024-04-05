@@ -1,6 +1,6 @@
 """
 File: lib.py
-Author: Crystal Diamond
+Author: Oliver Tzeng, Crystal Diamond
 Email: hsnucrc46@gmail.com
 Github: https://github.com/hsnucrc46
 Description: This file is a preference file, set your color, fps, player speed and more
@@ -112,12 +112,24 @@ def intro(clock, screen, action):
 
 
 def time_bar(screen, time):
-    pygame.draw.rect(screen, (0,0,0),(width*2/5, height/10, width/5, height/15))
-    draw_text(screen, str(int(time / 60)), 50, "white", width/2, height/15*2)
+    pygame.draw.rect(
+        screen, (0, 0, 0), (width * 2 / 5, height / 10, width / 5, height / 15)
+    )
+    draw_text(screen, str(int(time / 60)), 50, "white", width / 2, height / 15 * 2)
     if time < max_time:
-        pygame.draw.rect(screen, (127,255,127),(width*2/5, height/10, width/5*(max_time-time)/max_time, height/15))
+        pygame.draw.rect(
+            screen,
+            (127, 255, 127),
+            (
+                width * 2 / 5,
+                height / 10,
+                width / 5 * (max_time - time) / max_time,
+                height / 15,
+            ),
+        )
     else:
         quitgame()
+
 
 def quitgame():
     intro = False
