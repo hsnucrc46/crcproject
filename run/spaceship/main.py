@@ -6,7 +6,6 @@ Github: https://github.com/hsnucrc46
 Description: Interacts sprites declared in src/sprites.py
 """
 
-import sys
 import pygame
 import functools
 from random import randint
@@ -25,14 +24,11 @@ class Game:
         self.screen = pygame.display.set_mode((src.lib.width, src.lib.height))
         pygame.display.set_caption(src.lib.CAPTION)
         self.clock = pygame.time.Clock()
-
-    def new(self):
         src.lib.intro = False
         self.point = 0
         self.last_spawn_comet = pygame.time.get_ticks()
         self.comets = []
         self.player = src.sprites.spaceship(self)
-        self.run()
 
     def events(self):
         """
@@ -96,6 +92,6 @@ def bind_method(method, *args, **kwargs):
 
 
 game = Game()
-bound_new = functools.partial(bind_method, game.new)
-src.lib.intro(game.clock, game.screen, bound_new)
+bound_run = functools.partial(bind_method, game.run)
+src.lib.intro(game.clock, game.screen, bound_run)
 game.run()

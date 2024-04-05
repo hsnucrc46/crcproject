@@ -7,7 +7,6 @@ Description: This file is a preference file, set your color, fps, player speed a
 """
 
 from screeninfo import get_monitors
-import sys
 import pygame
 
 width = get_monitors()[0].width
@@ -20,6 +19,11 @@ time = 0
 CAPTION = "太空防衛戰"
 FPS = 60
 COLOR = "black"
+
+
+def quitgame():
+    pygame.quit()
+    quit()
 
 
 def collision(sub, obj):
@@ -51,7 +55,7 @@ def collision(sub, obj):
 
 
 def button(
-    screen, text, posX, posY, width, height, inActiveColor, activeColor, action=None
+    screen, text, posX, posY, width, height, inActiveColor, activeColor, action=quitgame
 ):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -94,7 +98,6 @@ def intro(clock, screen, action):
             height / 5,
             "white",
             "green",
-            action=lambda: action(),
         )
         button(
             screen,
@@ -129,9 +132,3 @@ def time_bar(screen, time):
         )
     else:
         quitgame()
-
-
-def quitgame():
-    intro = False
-    pygame.quit()
-    sys.exit()
