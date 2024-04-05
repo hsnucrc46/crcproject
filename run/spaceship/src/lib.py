@@ -10,16 +10,16 @@ from screeninfo import get_monitors
 import sys
 import pygame
 
+CAPTION = "太空防衛戰"
+FPS = 60
+COLOR = "black"
+
 width = get_monitors()[0].width
 height = get_monitors()[0].height
 min = 250
 max = 2000
-max_time = 60
+max_time = 3 * FPS
 time = 0
-
-CAPTION = "太空防衛戰"
-FPS = 60
-COLOR = "black"
 
 
 def collision(sub, obj):
@@ -107,28 +107,26 @@ def intro(clock, screen, action):
             "red",
             action=quitgame,
         )
+        time_bar(screen, clock, time)
         pygame.display.update()
-        clock.tick(FPS)
 
 
-def time_bar(screen, time):
+def time_bar(screen, clock, time):
     pygame.draw.rect(
         screen, (0, 0, 0), (width * 2 / 5, height / 10, width / 5, height / 15)
     )
-    draw_text(screen, str(int(time / 60)), 50, "white", width / 2, height / 15 * 2)
+    draw_text(
+        screen, str(int(time/FPS)), 50, "white", width / 2, height / 15 * 2
+    )
     if time < max_time:
         pygame.draw.rect(
-            screen,
-            (127, 255, 127),
-            (
-                width * 2 / 5,
-                height / 10,
-                width / 5 * (max_time - time) / max_time,
-                height / 15,
-            ),
+            screen, (127, 255, 127), (width * 2 / 5, height / 10, width / 5 * (max_time - time) / max_time, height / 15,)
         )
     else:
         quitgame()
+    
+    time += 1
+    clock.tick(FPS)
 
 
 def quitgame():
