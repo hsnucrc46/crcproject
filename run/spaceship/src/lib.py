@@ -18,7 +18,6 @@ width = get_monitors()[0].width
 height = get_monitors()[0].height
 min = 250
 max = 2000
-max_time = 3 * FPS
 time = 0
 
 
@@ -107,11 +106,10 @@ def intro(clock, screen, action):
             "red",
             action=quitgame,
         )
-        time_bar(screen, clock, time)
         pygame.display.update()
 
 
-def time_bar(screen, clock, time):
+def time_bar(screen, clock, time, max_time):
     pygame.draw.rect(
         screen, (0, 0, 0), (width * 2 / 5, height / 10, width / 5, height / 15)
     )
