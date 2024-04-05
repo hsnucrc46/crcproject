@@ -12,7 +12,7 @@
 | [Crystal-Diamond](https://github.com/crystal-diamond) | ⬜時間條 `run/spaceship/src/lib.py` |
 | [314hello](https://github.com/314hello) | ⬜血量條 `run/spaceship/src/lib.py` |
 | [DevBoring](https://github.com/devboring) | ⬜反擊功能 `run/spaceship/src/lib.py` |
-｜全員｜⬜️閱讀劇情｜
+|全員|⬜️閱讀劇情|
 ### P.S.
 - 未完成 => ⬜
 - 已完成 => ✅
