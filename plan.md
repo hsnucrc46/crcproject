@@ -1,18 +1,18 @@
 # 遊戲整合待辦事項：
 | 組員名稱 | 事項 |
 | ------------- | -------------- |
-| [stdcyanout](https://github.com/stdcyanout) | 故事頁面（利用 [rich](https://github.com/textualize/rich) ）`run/main.py` |
+| [stdcyanout](https://github.com/stdcyanout) | ✅故事頁面（利用 [rich](https://github.com/textualize/rich) ）`run/main.py` |
 # 遊戲 1 待辦事項：
 
 # 遊戲 2 待辦事項：
 | 組員名稱 | 事項 |
 | ------------- | -------------- |
 | [olivertzneg](https://github.com/olivertzeng)  | ✅分數計算 |
-| [olivertzneg](https://github.com/olivertzeng) | ⬜血量條以及遊戲開始/Game Over 文字(rich) `run/spaceship/main.py` |
+| [olivertzneg](https://github.com/olivertzeng) | ⬜玩家/女巫血量條以及遊戲開始/Game Over 文字(rich) `run/spaceship/main.py` |
 | [Crystal-Diamond](https://github.com/crystal-diamond) | ⬜時間條 `run/spaceship/src/lib.py` |
 | [314hello](https://github.com/314hello) | ⬜血量條 `run/spaceship/src/lib.py` |
 | [DevBoring](https://github.com/devboring) | ⬜反擊功能 `run/spaceship/src/lib.py` |
-
+｜全員｜⬜️閱讀劇情｜
 ### P.S.
 - 未完成 => ⬜
 - 已完成 => ✅
