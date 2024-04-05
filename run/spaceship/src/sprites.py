@@ -12,8 +12,9 @@ Healthbar:
 """
 
 from random import randint
-import src.lib
+
 import pygame
+import src.lib
 
 
 class spaceship:
@@ -30,7 +31,7 @@ class spaceship:
         self.ispaceship = pygame.image.load("run/spaceship/src/spaceship.png")
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
-        self.health = 100
+        self.health = src.lib.health
 
     def healthbar(self, screen):
         pygame.draw.rect(screen, (255, 0, 0), (50, 50, 50, 10))  # Draw a background bar
