@@ -106,24 +106,27 @@ def intro(clock, screen, action):
             "red",
             action=quitgame,
         )
+        time_bar(screen, clock, 10)
         pygame.display.update()
 
 
-def time_bar(screen, clock, time, max_time):
+def time_bar(screen, clock, max_time):
+    global time
     pygame.draw.rect(
-        screen, (0, 0, 0), (width * 2 / 5, height / 10, width / 5, height / 30)
+        screen, "dark red", (width * 7 / 10, height / 10, width / 5, height / 30)
     )
-    draw_text(
-        screen, str(int(time/FPS)), 50, "white", width / 2, height / 60 * 7
-    )
-    if time < max_time:
+    if time < max_time * FPS:
         pygame.draw.rect(
-            screen, (127, 255, 127), (width * 2 / 5, height / 10, width / 5 * (max_time - time) / max_time, height / 15)
+            screen, "green", (width * 7 / 10, height / 10, width / 5 * (max_time - time / FPS) / max_time, height / 30)
         )
     else:
         quitgame()
+    draw_text(
+        screen, str(max_time-int(time/FPS)), 50, "silver", width * 7 / 10 - 40, height * 7 / 60
+    )
     
     time += 1
+    print(time)
     clock.tick(FPS)
 
 

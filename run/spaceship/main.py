@@ -87,7 +87,7 @@ class Game:
         self.events()
         self.update()
         self.draw()
-        src.lib.time_bar(self.screen, self.clock, src.lib.time)
+        src.lib.time_bar(self.screen, self.clock, src.lib.time, 60)
 
 
 def bind_method(method, *args, **kwargs):
