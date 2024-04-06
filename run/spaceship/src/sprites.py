@@ -6,7 +6,7 @@ Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
 
 Healthbar:
-    1. player enemy collide
+1. player enemy collide
 2. draw healthbar
 3. if health=0
 """
@@ -34,9 +34,9 @@ class spaceship:
         self.health = src.lib.health
 
     def healthbar(self, screen):
-        pygame.draw.rect(screen, (255, 0, 0), (50, 50, 50, 10))  # Draw a background bar
+        pygame.draw.rect(screen, (255, 0, 0), (50, 50, 200, 50))  # Draw a background bar
         pygame.draw.rect(
-            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 50), 10)
+            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
         )
 
     def update(self, keys):
