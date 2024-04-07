@@ -71,7 +71,8 @@ def button(
     pygame.draw.rect(screen, button_color, (posX, posY, width, height))
 
     if is_mouse_over and click[0] == 1 and action is not None:
-        action()
+        while 1:
+            action()
 
     draw_text(screen, text, 50, "black", posX + (width / 2), posY + (height / 2))
 
@@ -136,4 +137,5 @@ def time_bar(screen, clock, max_time, action):
     )
     
     time += 1
+    pygame.display.update()
     clock.tick(FPS)
