@@ -82,7 +82,7 @@ class Game:
         self.events()
         self.update()
         self.draw()
-        src.lib.time_bar(self.screen, self.clock, 60)
+        src.lib.time_bar(self.screen, self.clock, src.lib.max_time, quit)
 
 
 game = Game()

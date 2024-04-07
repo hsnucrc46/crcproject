@@ -18,6 +18,7 @@ height = get_monitors()[0].height
 width = get_monitors()[0].width
 max = 2000
 min = 250
+max_time = 10
 step = -10
 time = 0
 
@@ -119,7 +120,7 @@ def intro(clock, screen, action, bintro):
         clock.tick(FPS)
 
 
-def time_bar(screen, clock, max_time):
+def time_bar(screen, clock, max_time, action):
     global time
     pygame.draw.rect(
         screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)
@@ -129,7 +130,7 @@ def time_bar(screen, clock, max_time):
             screen, "green", (width * 9 / 10, height / 5, width / 50, height * 2 / 5 * (max_time - time / FPS) / max_time)
         )
     else:
-        quitgame()
+        action()
     draw_text(
         screen, str(max_time-int(time/FPS)), 50, "silver", width * 91 / 100, height / 5 - 50
     )
