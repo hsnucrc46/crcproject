@@ -68,6 +68,7 @@ class game:
         self.player.draw(self.screen)
         for s in self.comets:
             s.draw()
+        src.lib.time_bar(self.screen, self.clock, src.lib.max_time, quit)
         pygame.display.update()
 
     def run(self):
@@ -78,7 +79,6 @@ class game:
         self.events()
         self.update()
         self.draw()
-        src.lib.time_bar(self.screen, self.clock, src.lib.max_time, quit)
 
 
 game = game()
