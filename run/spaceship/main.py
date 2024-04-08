@@ -1,9 +1,9 @@
 """
-File: main.py
-Author: Oliver Tzeng, Crystal Diamond, 314hello
-Email: hsnu.crc46th@gmail.com
-Github: https://github.com/hsnucrc46
-Description: Interacts sprites declared in src/sprites.py
+file: main.py
+author: oliver tzeng, crystal diamond, 314hello
+email: hsnu.crc46th@gmail.com
+github: https://github.com/hsnucrc46
+description: interacts sprites declared in src/sprites.py
 """
 
 from random import randint
@@ -13,17 +13,16 @@ import src.lib
 import src.sprites
 
 
-class Game:
+class game:
     """
-    the object Game runs the game buffer
+    the object game runs the game buffer
     """
 
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption(src.lib.CAPTION)
-        self.clock = pygame.time.Clock()
+        pygame.display.set_caption(src.lib.caption)
+        self.clock = pygame.time.clock()
         self.comets = []
-        self.intro = True
         self.last_spawn_comet = pygame.time.get_ticks()
         self.player = src.sprites.spaceship(self)
         self.point = 0
@@ -34,12 +33,8 @@ class Game:
         know when to quit pygame
         """
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.quit:
                 src.lib.quitgame(self.point)
-
-    def new(self):
-        self.intro = False
-        self.run()
 
     def update(self):
         """
@@ -58,7 +53,7 @@ class Game:
             if src.lib.collision(self.player, s):
                 self.player.health += src.lib.step
                 self.comets.remove(s)
-            if s.pos_y >= src.lib.height:
+            elif s.pos_y >= src.lib.height:
                 self.comets.remove(s)
                 self.point += 1
 
@@ -69,7 +64,7 @@ class Game:
         """
         update to screen
         """
-        self.screen.fill(src.lib.COLOR)
+        self.screen.fill(src.lib.color)
         self.player.draw(self.screen)
         for s in self.comets:
             s.draw()
@@ -79,12 +74,13 @@ class Game:
         """
         what actually needs to be done after initializing the game
         """
+        pygame.display.update()
         self.events()
         self.update()
         self.draw()
         src.lib.time_bar(self.screen, self.clock, src.lib.max_time, quit)
 
 
-game = Game()
-src.lib.intro(game.clock, game.screen, game, game.intro)
+game = game()
+src.lib.intro(game.clock, game.screen, game, bintro=true)
 src.lib.quitgame(game.point)

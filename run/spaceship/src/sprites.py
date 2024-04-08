@@ -4,11 +4,6 @@ Author: Crystal Diamond, Oliver Tzeng, 314hello
 Email: hsnu.crc46th@gmail.com
 Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
-
-Healthbar:
-1. player enemy collide
-2. draw healthbar
-3. if health=0
 """
 
 from random import randint
@@ -28,16 +23,18 @@ class spaceship:
         self.pos_y = src.lib.height * 0.75
         self.speed_x = 50
         self.direction_x = 0
-        self.ispaceship = pygame.image.load("run/spaceship/src/spaceship.png")
+        self.ispaceship = pygame.image.load("src/spaceship.png")
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
         self.health = src.lib.health
 
     def healthbar(self, screen):
-        pygame.draw.rect(screen, (255, 0, 0), (50, 50, 200, 50))  # Draw a background bar
         pygame.draw.rect(
-            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
-        )
+                screen, (255, 0, 0), (50, 50, 200, 50)
+                )  # Draw a background bar
+        pygame.draw.rect(
+                screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
+                )
 
     def update(self, keys):
         if keys[pygame.K_LEFT]:
@@ -70,7 +67,7 @@ class comet:
         self.pos_y = -50
         self.speed_y = 0
         self.acceleration_y = 9.8 / src.lib.FPS
-        self.icomet = pygame.image.load("run/spaceship/src/comet.png")
+        self.icomet = pygame.image.load("src/comet.png")
         self.rect = self.icomet.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
 

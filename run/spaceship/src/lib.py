@@ -47,22 +47,31 @@ def collision(sub, obj):
     Check if objects are colliding along the y-axis
     """
     y_colliding = (
-        pos_obj[1] < pos_sub[1] + height_sub and pos_obj[1] + height_obj >= pos_sub[1]
-    )
+            pos_obj[1] < pos_sub[1] + height_sub and pos_obj[1] + height_obj >= pos_sub[1]
+            )
 
     """
     Check if objects are colliding along the y-axis
     """
     x_colliding = (
-        pos_obj[0] < pos_sub[0] + width_sub and pos_obj[0] + width_obj >= pos_sub[0]
-    )
+            pos_obj[0] < pos_sub[0] + width_sub and pos_obj[0] + width_obj >= pos_sub[0]
+            )
 
     return y_colliding and x_colliding
 
 
 def button(
-    screen, text, posX, posY, width, height, inActiveColor, activeColor, action=None
-):
+        screen,
+        text,
+        posX,
+        posY,
+        width,
+        height,
+        inActiveColor,
+        activeColor,
+        action=None,
+        bintro=False,
+        ):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     is_mouse_over = posX < mouse[0] < posX + width and posY < mouse[1] < posY + height
@@ -73,8 +82,10 @@ def button(
     if is_mouse_over and click[0] == 1 and action is not None:
         while 1:
             action()
+        return False
 
     draw_text(screen, text, 50, "black", posX + (width / 2), posY + (height / 2))
+    return True
 
 
 def draw_text(screen, text, size, color, x, y):
@@ -96,27 +107,28 @@ def intro(clock, screen, action, bintro):
         screen.fill(COLOR)
         draw_text(screen, "Level 2", 80, "white", width / 2, height / 2)
         button(
-            screen,
-            "Begin",
-            width * 3 / 5,
-            height * 2 / 3,
-            width / 5,
-            height / 5,
-            "white",
-            "green",
-            action=action.run,
-        )
+                screen,
+                "Begin",
+                width * 3 / 5,
+                height * 2 / 3,
+                width / 5,
+                height / 5,
+                "white",
+                "green",
+                action=action.run,
+                bintro=bintro,  # Pass bintro to the button function
+                )
         button(
-            screen,
-            "Exit",
-            width * 1 / 5,
-            height * 2 / 3,
-            width / 5,
-            height / 5,
-            "white",
-            "red",
-            action=quitgame,
-        )
+                screen,
+                "Exit",
+                width * 1 / 5,
+                height * 2 / 3,
+                width / 5,
+                height / 5,
+                "white",
+                "red",
+                action=quitgame,
+                )
         pygame.display.update()
         clock.tick(FPS)
 
@@ -124,18 +136,30 @@ def intro(clock, screen, action, bintro):
 def time_bar(screen, clock, max_time, action):
     global time
     pygame.draw.rect(
-        screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)
-    )
+            screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)
+            )
     if time < max_time * FPS:
         pygame.draw.rect(
-            screen, "green", (width * 9 / 10, height / 5, width / 50, height * 2 / 5 * (max_time - time / FPS) / max_time)
-        )
+                screen,
+                "green",
+                (
+                    width * 9 / 10,
+                    height / 5,
+                    width / 50,
+                    height * 2 / 5 * (max_time - time / FPS) / max_time,
+                    ),
+                )
     else:
         action()
     draw_text(
-        screen, str(max_time-int(time/FPS)), 50, "silver", width * 91 / 100, height / 5 - 50
-    )
-    
+            screen,
+            str(max_time - int(time / FPS)),
+            50,
+            "silver",
+            width * 91 / 100,
+            height / 5 - 50,
+            )
+
     time += 1
     pygame.display.update()
     clock.tick(FPS)
