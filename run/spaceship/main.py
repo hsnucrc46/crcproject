@@ -21,7 +21,7 @@ class game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(src.lib.caption)
-        self.clock = pygame.time.clock()
+        self.clock = pygame.time.Clock()
         self.comets = []
         self.last_spawn_comet = pygame.time.get_ticks()
         self.player = src.sprites.spaceship(self)
@@ -82,5 +82,5 @@ class game:
 
 
 game = game()
-src.lib.intro(game.clock, game.screen, game, bintro=true)
+src.lib.intro(game.clock, game.screen, game, bintro=True)
 src.lib.quitgame(game.point)

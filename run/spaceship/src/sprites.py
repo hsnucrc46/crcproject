@@ -30,11 +30,11 @@ class spaceship:
 
     def healthbar(self, screen):
         pygame.draw.rect(
-                screen, (255, 0, 0), (50, 50, 200, 50)
-                )  # Draw a background bar
+            screen, (255, 0, 0), (50, 50, 200, 50)
+        )  # Draw a background bar
         pygame.draw.rect(
-                screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
-                )
+            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
+        )
 
     def update(self, keys):
         if keys[pygame.K_LEFT]:
@@ -66,7 +66,7 @@ class comet:
         self.pos_x = randint(0, src.lib.width)
         self.pos_y = -50
         self.speed_y = 0
-        self.acceleration_y = 9.8 / src.lib.FPS
+        self.acceleration_y = 9.8 / src.lib.fps
         self.icomet = pygame.image.load("src/comet.png")
         self.rect = self.icomet.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
