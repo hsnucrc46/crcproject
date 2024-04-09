@@ -19,14 +19,15 @@ class spaceship:
 
     def __init__(self, game):
         self.game = game
-        self.pos_x = src.lib.width * 0.45
-        self.pos_y = src.lib.height * 0.75
-        self.speed_x = 50
-        self.direction_x = 0
+        self.health = src.lib.health
         self.ispaceship = pygame.image.load("src/spaceship.png")
+        self.width = src.lib.width
+        self.pos_x = self.width * 0.45
+        self.pos_y = src.lib.height * 0.75
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
-        self.health = src.lib.health
+        self.direction_x = 0
+        self.speed_x = 50
 
     def healthbar(self, screen):
         pygame.draw.rect(
@@ -45,10 +46,10 @@ class spaceship:
             self.direction_x = 0
 
         self.pos_x += self.direction_x * self.speed_x
-        if self.pos_x <= 0:
-            self.pos_x = 0
-        elif self.pos_x >= src.lib.width - 100:
-            self.pos_x = src.lib.width - 100
+        if self.pos_x <= -200:
+            self.pos_x = -200
+        elif self.pos_x >= self.width - 350:
+            self.pos_x = self.width - 350
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def draw(self, screen):
@@ -65,7 +66,8 @@ class comet:
         self.game = game
         self.icomet = pygame.image.load("src/comet.png")
         self.rect = self.icomet.get_rect()
-        self.pos_x = randint(0, src.lib.width)
+        self.fixed_width = src.lib.width - 30
+        self.pos_x = randint(int(0-self.rect.width/2), int(self.fixed_width-self.rect.width/2))
         self.pos_y = -50
         self.speed_y = 0
         self.acceleration_y = 9.8 / src.lib.fps
