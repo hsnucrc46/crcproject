@@ -25,7 +25,7 @@ class game:
         pygame.display.set_caption(src.lib.caption)
         self.clock = pygame.time.Clock()
         self.collision = src.lib.collision
-        self.color = src.lib.color
+        self.ibackground = pygame.image.load("src/bg.png")
         self.comets = []
         self.height = src.lib.height
         self.last_spawn_comet = pygame.time.get_ticks()
@@ -74,7 +74,7 @@ class game:
         """
         update to screen
         """
-        self.screen.fill(self.color)
+        self.screen.blit(self.ibackground, (0, 0))
         self.player.draw(self.screen)
         for s in self.comets:
             s.draw()
