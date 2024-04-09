@@ -12,6 +12,8 @@ import pygame
 import src.lib
 import src.sprites
 
+quitgame = src.lib.quitgame
+
 
 class game:
     """
@@ -22,11 +24,19 @@ class game:
         pygame.init()
         pygame.display.set_caption(src.lib.caption)
         self.clock = pygame.time.Clock()
+        self.collision = src.lib.collision
+        self.color = src.lib.color
         self.comets = []
+        self.height = src.lib.height
         self.last_spawn_comet = pygame.time.get_ticks()
+        self.max = src.lib.max
+        self.max_time = src.lib.max_time
+        self.min = src.lib.min
         self.player = src.sprites.spaceship(self)
         self.point = 0
-        self.screen = pygame.display.set_mode((src.lib.width, src.lib.height))
+        self.screen = pygame.display.set_mode((src.lib.width, self.height))
+        self.step = src.lib.step
+        self.time_bar = src.lib.time_bar
 
     def events(self):
         """
@@ -34,7 +44,7 @@ class game:
         """
         for event in pygame.event.get():
             if event.type == pygame.quit:
-                src.lib.quitgame(self.point)
+                quitgame(self.point)
 
     def update(self):
         """
@@ -43,32 +53,32 @@ class game:
         self.player.update(pygame.key.get_pressed())
 
         if pygame.time.get_ticks() - self.last_spawn_comet >= randint(
-            src.lib.min, src.lib.max
+            self.min, self.max
         ):
             self.comets.append(src.sprites.comet(self))
             self.last_spawn_comet = pygame.time.get_ticks()
 
         for s in self.comets:
             s.update()
-            if src.lib.collision(self.player, s):
-                self.player.health += src.lib.step
+            if self.collision(self.player, s):
+                self.player.health += self.step
                 self.comets.remove(s)
-            elif s.pos_y >= src.lib.height:
+            elif s.pos_y >= self.height:
                 self.comets.remove(s)
                 self.point += 1
 
         if self.player.health == 0:
-            src.lib.quitgame(self.point)
+            quitgame(self.point)
 
     def draw(self):
         """
         update to screen
         """
-        self.screen.fill(src.lib.color)
+        self.screen.fill(self.color)
         self.player.draw(self.screen)
         for s in self.comets:
             s.draw()
-        src.lib.time_bar(self.screen, self.clock, src.lib.max_time, quit)
+        self.time_bar(self.screen, self.clock, self.max_time, quit)
         pygame.display.update()
 
     def run(self):
@@ -83,4 +93,4 @@ class game:
 
 game = game()
 src.lib.intro(game.clock, game.screen, game, bintro=True)
-src.lib.quitgame(game.point)
+quitgame(game.point)
