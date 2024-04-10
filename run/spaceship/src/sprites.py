@@ -64,9 +64,10 @@ class comet:
 
     def __init__(self, game):
         self.game = game
+        self.fixed_width = src.lib.width - 30
         self.icomet = pygame.image.load("src/comet.png")
         self.rect = self.icomet.get_rect()
-        self.fixed_width = src.lib.width - 30
+        pygame.transform.scale(self.icomet, ())
         self.pos_x = randint(int(0-self.rect.width/2), int(self.fixed_width-self.rect.width/2))
         self.pos_y = -50
         self.speed_y = 0
