@@ -9,10 +9,10 @@ description: interacts sprites declared in src/sprites.py
 from random import randint
 
 import pygame
-import src.lib
-import src.sprites
+import src.lib as lib
+import src.sprites as sprites
 
-quitgame = src.lib.quitgame
+quitgame = lib.quitgame
 
 
 class game:
@@ -22,21 +22,23 @@ class game:
 
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption(src.lib.caption)
+        pygame.display.set_caption(lib.caption)
         self.clock = pygame.time.Clock()
-        self.collision = src.lib.collision
+        self.collision = lib.collision
         self.ibackground = pygame.image.load("src/bg.png")
         self.comets = []
-        self.height = src.lib.height
+        self.fps = lib.fps
+        self.height = lib.height
         self.last_spawn_comet = pygame.time.get_ticks()
-        self.max = src.lib.max
-        self.max_time = src.lib.max_time
-        self.min = src.lib.min
-        self.player = src.sprites.spaceship(self)
+        self.max = lib.max
+        self.max_time = lib.max_time
+        self.min = lib.min
+        self.player = sprites.spaceship(self)
+        self.playing = True
         self.point = 0
-        self.screen = pygame.display.set_mode((src.lib.width, self.height))
-        self.step = src.lib.step
-        self.time_bar = src.lib.time_bar
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.step = lib.step
+        self.time_bar = lib.time_bar
 
     def events(self):
         """
@@ -55,7 +57,7 @@ class game:
         if pygame.time.get_ticks() - self.last_spawn_comet >= randint(
             self.min, self.max
         ):
-            self.comets.append(src.sprites.comet(self))
+            self.comets.append(sprites.comet(self))
             self.last_spawn_comet = pygame.time.get_ticks()
 
         for s in self.comets:
@@ -67,7 +69,7 @@ class game:
                 self.comets.remove(s)
                 self.point += 1
 
-        if self.player.health == 0:
+        if not self.player.health:
             quitgame(self.point)
 
     def draw(self):
@@ -85,12 +87,12 @@ class game:
         """
         what actually needs to be done after initializing the game
         """
-        pygame.display.update()
-        self.events()
-        self.update()
-        self.draw()
+        while self.playing:
+            self.events()
+            self.update()
+            self.draw()
+            self.clock.tick(self.fps)
 
 
 game = game()
-src.lib.intro(game.clock, game.screen, game, bintro=True)
-quitgame(game.point)
+lib.intro(game.clock, game.screen, game)

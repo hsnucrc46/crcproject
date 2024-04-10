@@ -70,7 +70,6 @@ def button(
     inActiveColor,
     activeColor,
     action=None,
-    bintro=False,
 ):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -80,8 +79,7 @@ def button(
     pygame.draw.rect(screen, button_color, (posX, posY, width, height))
 
     if is_mouse_over and click[0] == 1 and action is not None:
-        while 1:
-            action()
+        action()
         return False
 
     draw_text(screen, text, 50, "black", posX + (width / 2), posY + (height / 2))
@@ -96,19 +94,19 @@ def draw_text(screen, text, size, color, x, y):
     screen.blit(text_surface, text_rect)
 
 
-def intro(clock, screen, action, bintro):
+def intro(clock, screen, action):
     """
-    startscreen
+    intro screen
     """
-    while bintro:
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quitgame()
         screen.fill(color)
         draw_text(screen, "Level 2", 80, "white", width / 2, height / 2)
-        button(
+        if not button(
             screen,
-            "Begin",
+            "Start",
             width * 3 / 5,
             height * 2 / 3,
             width / 5,
@@ -116,8 +114,8 @@ def intro(clock, screen, action, bintro):
             "white",
             "green",
             action=action.run,
-            bintro=bintro,  # Pass bintro to the button function
-        )
+        ):
+            break
         button(
             screen,
             "Exit",
