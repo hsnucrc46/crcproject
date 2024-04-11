@@ -115,7 +115,7 @@ def intro(clock, screen, action):
             "green",
             action=action.run,
         ):
-            break
+            return 0
         button(
             screen,
             "Exit",

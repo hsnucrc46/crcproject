@@ -9,7 +9,7 @@ Description: Sprites(objects) declaration
 from random import randint
 
 import pygame
-import src.lib
+import src.lib as lib
 
 
 class spaceship:
@@ -19,11 +19,13 @@ class spaceship:
 
     def __init__(self, game):
         self.game = game
-        self.health = src.lib.health
-        self.ispaceship = pygame.image.load("src/spaceship.png")
-        self.width = src.lib.width
+        self.health = lib.health
+        self.ispaceship = pygame.transform.rotozoom(
+            pygame.image.load("src/spaceship.png"), 0, 0.75
+        )
+        self.width = lib.width
         self.pos_x = self.width * 0.45
-        self.pos_y = src.lib.height * 0.75
+        self.pos_y = lib.height * 0.65
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
         self.direction_x = 0
@@ -33,9 +35,7 @@ class spaceship:
         pygame.draw.rect(
             screen, (255, 0, 0), (50, 50, 200, 50)
         )  # Draw a background bar
-        pygame.draw.rect(
-            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
-        )
+        pygame.draw.rect(screen, (0, 255, 0), (50, 50, self.health * 20, 50))
 
     def update(self, keys):
         if keys[pygame.K_LEFT]:
@@ -68,13 +68,13 @@ class comet:
             pygame.image.load("src/comet.png"), 0, 0.2
         )
         self.rect = self.icomet.get_rect()
-        self.fixed_width = src.lib.width - 30
+        self.fixed_width = lib.width - 30
         self.pos_x = randint(
             int(0 - self.rect.width / 2), int(self.fixed_width - self.rect.width / 2)
         )
         self.pos_y = -50
         self.speed_y = 0
-        self.acceleration_y = 9.8 / src.lib.fps
+        self.acceleration_y = 9.8 / lib.fps
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def update(self):
