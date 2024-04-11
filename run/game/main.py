@@ -1,8 +1,13 @@
-
+"""
+file: main.py
+author: 
+email: hsnu.crc46th@gmail.com
+github: https://github.com/hsnucrc46
+description: interacts sprites declared in src/sprites.py
+"""
 
 import pygame
 import src.lib
-
 
 quitgame = src.lib.quitgame
 
