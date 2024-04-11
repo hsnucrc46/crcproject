@@ -29,14 +29,6 @@ class spaceship:
         self.direction_x = 0
         self.speed_x = 50
 
-    def healthbar(self, screen):
-        pygame.draw.rect(
-            screen, (255, 0, 0), (50, 50, 200, 50)
-        )  # Draw a background bar
-        pygame.draw.rect(
-            screen, (0, 255, 0), (50, 50, int((self.health / 100) * 200), 50)
-        )
-
     def update(self, keys):
         if keys[pygame.K_LEFT]:
             self.direction_x = -1
@@ -54,7 +46,6 @@ class spaceship:
 
     def draw(self, screen):
         self.game.screen.blit(self.ispaceship, (self.pos_x, self.pos_y))
-        self.healthbar(screen)
 
 
 class comet:

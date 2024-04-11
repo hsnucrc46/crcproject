@@ -36,6 +36,7 @@ class game:
         self.point = 0
         self.screen = pygame.display.set_mode((src.lib.width, self.height))
         self.step = src.lib.step
+        self.health_bar = src.lib.health_bar
         self.time_bar = src.lib.time_bar
 
     def events(self):
@@ -78,6 +79,7 @@ class game:
         self.player.draw(self.screen)
         for s in self.comets:
             s.draw()
+        self.health_bar(self.player, self.screen)
         self.time_bar(self.screen, self.max_time, quit)
         pygame.display.update()
 
