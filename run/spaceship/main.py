@@ -77,10 +77,10 @@ class game:
         """
         self.screen.blit(self.ibackground, (0, 0))
         self.player.draw(self.screen)
-        for s in self.comets:
-            s.draw()
         self.health_bar(self.player, self.screen)
         self.time_bar(self.screen, self.max_time, quit)
+        for s in self.comets:
+            s.draw()
         pygame.display.update()
 
     def run(self):
