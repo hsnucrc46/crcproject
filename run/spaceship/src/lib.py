@@ -161,5 +161,3 @@ def time_bar(screen, clock, max_time, action):
     )
 
     time += 1
-    pygame.display.update()
-    clock.tick(fps)
