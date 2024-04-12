@@ -131,26 +131,10 @@ def intro(clock, screen, action):
         clock.tick(fps)
 
 
-def health_bar(player, screen):
-    pygame.draw.rect(
-        screen, (255, 0, 0), (50, 50, 200, 50)
-    )  # Draw a background bar
-    pygame.draw.rect(
-        screen, (0, 255, 0), (50, 50, int((player.health / 100) * 200), 50)
-    )
-
-
 def time_bar(screen, max_time, action):
     global time
     pygame.draw.rect(
-        screen,
-        "dark red",
-        (
-            width * 9 / 10,
-            height / 5,
-            width / 50,
-            height * 2 / 5
-        )
+        screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)
     )
     if time < max_time * 1000:
         pygame.draw.rect(

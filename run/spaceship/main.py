@@ -39,6 +39,7 @@ class game:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.step = lib.step
         self.time_bar = lib.time_bar
+        self.healthbar = self.player.healthbar
 
     def events(self):
         """
@@ -78,11 +79,10 @@ class game:
         """
         self.screen.blit(self.ibackground, (0, 0))
         self.player.draw(self.screen)
-        self.health_bar(self.player, self.screen)
-        self.time_bar(self.screen, self.max_time, quit)
+        self.healthbar(self.screen)
+        self.time_bar(self.screen, self.max_time, quitgame)
         for s in self.comets:
             s.draw()
-        self.time_bar(self.screen, self.clock, self.max_time, quitgame)
         pygame.display.update()
 
     def run(self):
