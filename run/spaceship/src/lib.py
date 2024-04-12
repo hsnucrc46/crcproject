@@ -1,6 +1,6 @@
 """
 File: lib.py
-Author: Oliver Tzeng, Crystal Diamond
+Author: Oliver Tzeng, Crystal Diamond, 314Hello
 Email: hsnucrc46@gmail.com
 Github: https://github.com/hsnucrc46
 Description: This file is a preference file, set your color, fps, player speed and more
