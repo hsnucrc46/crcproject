@@ -38,7 +38,7 @@ class game:
         self.point = 0
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.step = lib.step
-        self.time_bar = lib.time_bar
+        self.timebar = lib.timebar
         self.healthbar = self.player.healthbar
 
     def events(self):
@@ -77,7 +77,7 @@ class game:
         """
         update to screen
         """
-        self.screen.blit(self.ibackground, (0, 0))
+        self.screen.blit(self.ibackground, (0, 100))
         self.player.draw(self.screen)
         self.healthbar(self.screen)
         self.time_bar(self.screen, self.max_time, quitgame)
