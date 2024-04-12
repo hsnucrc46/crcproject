@@ -71,7 +71,7 @@ class comet:
         self.pos_x = randint(
             int(0 - self.rect.width / 2), int(self.fixed_width - self.rect.width / 2)
         )
->>>>>>> dev
+        self.pos_y = lib.height * 0.65
         self.speed_y = 0
         self.acceleration_y = 9.8 / lib.fps
         self.rect.topleft = (self.pos_x, self.pos_y)

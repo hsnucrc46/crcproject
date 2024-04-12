@@ -82,28 +82,18 @@ class game:
         self.time_bar(self.screen, self.max_time, quit)
         for s in self.comets:
             s.draw()
-<<<<<<< HEAD
-=======
         self.time_bar(self.screen, self.clock, self.max_time, quitgame)
->>>>>>> dev
         pygame.display.update()
 
     def run(self):
         """
         what actually needs to be done after initializing the game
         """
-<<<<<<< HEAD
-        self.events()
-        self.update()
-        self.draw()
-        self.clock.tick(src.lib.fps)
-=======
         while self.playing:
             self.events()
             self.update()
             self.draw()
             self.clock.tick(self.fps)
->>>>>>> dev
 
 
 game = game()
