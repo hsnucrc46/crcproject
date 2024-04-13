@@ -77,7 +77,7 @@ class game:
         """
         update to screen
         """
-        self.screen.blit(self.ibackground, (0, 100))
+        self.screen.blit(self.ibackground, (0, 0))
         self.player.draw(self.screen)
         self.healthbar(self.screen)
         self.timebar(self.screen, self.max_time, quitgame)

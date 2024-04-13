@@ -19,7 +19,7 @@ class spaceship:
 
     def __init__(self, game):
         self.game = game
-        self.health = lib.health
+        self.health = lib.max_health
         self.ispaceship = pygame.transform.rotozoom(
             pygame.image.load("src/spaceship.png"), 0, 0.1
         )
@@ -33,9 +33,15 @@ class spaceship:
 
     def healthbar(self, screen):
         pygame.draw.rect(
-            screen, (255, 0, 0), (50, 50, 200, 50)
+            screen,
+            (255, 0, 0),
+            (50, 50, 200, 50)
         )  # Draw a background bar
-        pygame.draw.rect(screen, (0, 255, 0), (50, 50, self.health * 20, 50))
+        pygame.draw.rect(
+            screen,
+            (0, 255, 0),
+            (50, 50, self.health / lib.max_health * 200, 50)
+            )
 
     def update(self, keys):
         if keys[pygame.K_LEFT]:

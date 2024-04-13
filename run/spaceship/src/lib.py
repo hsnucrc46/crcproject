@@ -13,7 +13,7 @@ from screeninfo import get_monitors
 caption = "太空防衛戰"
 color = "black"
 fps = 60
-health = 100
+max_health = 100
 height = get_monitors()[0].height
 width = get_monitors()[0].width
 max = 2000
