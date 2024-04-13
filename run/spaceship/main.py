@@ -80,7 +80,7 @@ class game:
         self.screen.blit(self.ibackground, (0, 100))
         self.player.draw(self.screen)
         self.healthbar(self.screen)
-        self.time_bar(self.screen, self.max_time, quitgame)
+        self.timebar(self.screen, self.max_time, quitgame)
         for s in self.comets:
             s.draw()
         pygame.display.update()

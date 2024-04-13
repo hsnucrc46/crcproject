@@ -131,7 +131,7 @@ def intro(clock, screen, action):
         clock.tick(fps)
 
 
-def time_bar(screen, max_time, action):
+def timebar(screen, max_time, action):
     global time
     pygame.draw.rect(
         screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)

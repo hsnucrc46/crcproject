@@ -21,11 +21,11 @@ class spaceship:
         self.game = game
         self.health = lib.health
         self.ispaceship = pygame.transform.rotozoom(
-            pygame.image.load("src/spaceship.png"), 0, 0.75
+            pygame.image.load("src/spaceship.png"), 0, 0.1
         )
         self.width = lib.width
         self.pos_x = self.width * 0.45
-        self.pos_y = lib.height * 0.65
+        self.pos_y = lib.height * 0.75
         self.rect = self.ispaceship.get_rect()
         self.rect.topleft = (self.pos_x, self.pos_y)
         self.direction_x = 0
@@ -64,7 +64,7 @@ class comet:
     def __init__(self, game):
         self.game = game
         self.icomet = pygame.transform.rotozoom(
-            pygame.image.load("src/comet.png"), 0, 0.2
+            pygame.image.load("src/comet.png"), 0, 0.05
         )
         self.rect = self.icomet.get_rect()
         self.pos_x = randint(0, lib.width)
