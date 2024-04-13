@@ -52,10 +52,10 @@ class spaceship:
             self.direction_x = 0
 
         self.pos_x += self.direction_x * self.speed_x
-        if self.pos_x <= -200:
-            self.pos_x = -200
-        elif self.pos_x >= self.width - 350:
-            self.pos_x = self.width - 350
+        if self.pos_x <= 0:
+            self.pos_x = 0
+        elif self.pos_x >= self.width - self.rect.width:
+            self.pos_x = self.width - self.rect.width
         self.rect.topleft = (self.pos_x, self.pos_y)
 
     def draw(self, screen):
@@ -73,8 +73,8 @@ class comet:
             pygame.image.load("src/comet.png"), 0, 0.05
         )
         self.rect = self.icomet.get_rect()
-        self.pos_x = randint(0, lib.width)
-        self.pos_y = 0
+        self.pos_x = randint(0, lib.width-self.rect.width)
+        self.pos_y = 0 - self.rect.height
         self.speed_y = 0
         self.acceleration_y = 9.8 / lib.fps
         self.rect.topleft = (self.pos_x, self.pos_y)
