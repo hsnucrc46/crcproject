@@ -59,7 +59,11 @@ class game:
                 quitgame()
 
     def update(self):
-        pass
+        self.player.update()
+
+    def draw(self):
+        
+        self.player.draw_health_bar()
 
 
 # Create the start button

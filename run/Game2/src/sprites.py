@@ -34,21 +34,21 @@ class Stone(pygame.sprite.Sprite):
         self.direction = random.choice(["right", "left", "up", "down"])
         if self.direction == "right":
             self.rect.x = -lib.stone_size
-            self.rect.y = random.randint(0, lib.height - lib.STONE_SIZE)
+            self.rect.y = random.randint(0, lib.height - lib.stone_size)
             self.speed_x = lib.stone_speed
             self.speed_y = 0
         elif self.direction == "left":
-            self.rect.x = lib.SCREEN_WIDTH
-            self.rect.y = random.randint(0, lib.height - lib.STONE_SIZE)
+            self.rect.x = lib.width
+            self.rect.y = random.randint(0, lib.height - lib.stone_size)
             self.speed_x = -lib.stone_speed
             self.speed_y = 0
         elif self.direction == "up":
-            self.rect.x = random.randint(0, lib.width - lib.STONE_SIZE)
-            self.rect.y = lib.HEIGHT
+            self.rect.x = random.randint(0, lib.width - lib.stone_size)
+            self.rect.y = lib.height
             self.speed_x = 0
             self.speed_y = -lib.stone_speed
         elif self.direction == "down":
-            self.rect.x = random.randint(0, lib.width - lib.STONE_SIZE)
+            self.rect.x = random.randint(0, lib.width - lib.stone_size)
             self.rect.y = -lib.stone_size
             self.speed_x = 0
             self.speed_y = lib.stone_speed
