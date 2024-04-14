@@ -12,7 +12,7 @@ import pygame
 import src.lib as lib
 
 
-class spaceship:
+class Spaceship:
     """
     The player
     """
