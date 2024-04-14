@@ -1,8 +1,10 @@
 # 遊戲整合待辦事項：
 | 組員名稱 | 事項 |
 | ------------- | -------------- |
-| [stdcyanout](https://github.com/stdcyanout) | ✅故事頁面（利用 [rich](https://github.com/textualize/rich) ）`run/main.py` |
+| [stdcyanout](https://github.com/stdcyanout) | ⬜故事頁面（利用 [rich](https://github.com/textualize/rich) ）`run/main.py` |
 # 遊戲 1 待辦事項：
+| 組員名稱 | 事項 |
+| ------------- | -------------- |
 |1|⬜遊戲開始|
 
 |2|⬜分數計算|
