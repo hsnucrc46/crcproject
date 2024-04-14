@@ -101,4 +101,3 @@ class game:
 
 game = game()
 lib.intro(game.clock, game.screen, game)
-quitgame(self.point)
