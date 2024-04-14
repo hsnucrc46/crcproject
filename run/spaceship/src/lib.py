@@ -113,7 +113,7 @@ def intro(clock, screen, action):
             height / 5,
             "white",
             "green",
-            action=action.run,
+            action=action.new,
         ):
             return 0
         button(

@@ -24,29 +24,33 @@ class game:
         pygame.init()
         pygame.display.set_caption(lib.caption)
         self.clock = pygame.time.Clock()
-        self.collision = lib.collision
-        self.ibackground = pygame.image.load("src/bg.png")
-        self.comets = []
         self.fps = lib.fps
         self.height = lib.height
-        self.last_spawn_comet = pygame.time.get_ticks()
-        self.max = lib.max
-        self.max_time = lib.max_time
-        self.min = lib.min
-        self.player = sprites.spaceship(self)
         self.playing = True
         self.point = 0
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.step = lib.step
         self.timebar = lib.timebar
+
+    def new(self):
+        self.player = sprites.spaceship(self)
+        self.collision = lib.collision
+        self.comets = []
+        self.comet_pool = sprites.CometPool(self)
         self.healthbar = self.player.healthbar
+        self.ibackground = pygame.image.load("src/bg.png")
+        self.last_spawn_comet = pygame.time.get_ticks()
+        self.max = lib.max
+        self.max_time = lib.max_time
+        self.min = lib.min
+        self.run()
 
     def events(self):
         """
         know when to quit pygame
         """
         for event in pygame.event.get():
-            if event.type == pygame.quit:
+            if event.type == pygame.QUIT:
                 quitgame(self.point)
 
     def update(self):
@@ -55,19 +59,20 @@ class game:
         """
         self.player.update(pygame.key.get_pressed())
 
-        if pygame.time.get_ticks() - self.last_spawn_comet >= randint(
-            self.min, self.max
-        ):
+        self.now = pygame.time.get_ticks()
+        if self.now - self.last_spawn_comet >= randint(self.min, self.max):
             self.comets.append(sprites.comet(self))
-            self.last_spawn_comet = pygame.time.get_ticks()
+            self.last_spawn_comet = self.now
 
-        for s in self.comets:
-            s.update()
+        self.comet_pool.update()  # Update all comets in the CometPool
+
+        # Check for collisions with player and handle removal of comets
+        for s in self.comet_pool:
             if self.collision(self.player, s):
                 self.player.health += self.step
-                self.comets.remove(s)
+                self.comet_pool.comets.remove(s)
             elif s.pos_y >= self.height:
-                self.comets.remove(s)
+                self.comet_pool.comets.remove(s)
                 self.point += 1
 
         if not self.player.health:
@@ -98,3 +103,4 @@ class game:
 
 game = game()
 lib.intro(game.clock, game.screen, game)
+quitgame(self.point)

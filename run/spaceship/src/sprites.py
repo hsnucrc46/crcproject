@@ -33,15 +33,11 @@ class spaceship:
 
     def healthbar(self, screen):
         pygame.draw.rect(
-            screen,
-            (255, 0, 0),
-            (50, 50, 200, 50)
+            screen, (255, 0, 0), (50, 50, 200, 50)
         )  # Draw a background bar
         pygame.draw.rect(
-            screen,
-            (0, 255, 0),
-            (50, 50, self.health / lib.max_health * 200, 50)
-            )
+            screen, (0, 255, 0), (50, 50, self.health / lib.max_health * 200, 50)
+        )
 
     def update(self, keys):
         if keys[pygame.K_LEFT]:
@@ -62,6 +58,39 @@ class spaceship:
         self.game.screen.blit(self.ispaceship, (self.pos_x, self.pos_y))
 
 
+class CometPool:
+    def __init__(self, game):
+        self.game = game
+        self.comets = []
+
+    def create_comet(self):
+        new_comet = comet(self.game)
+        self.comets.append(new_comet)
+
+    def update(self):
+        for comet in self.comets:
+            comet.update()
+
+    def draw(self):
+        for comet in self.comets:
+            comet.draw()
+
+        # Optionally, you can add logic here to remove off-screen comets from the pool
+        self.comets = [comet for comet in self.comets if comet.rect.top < lib.height]
+
+    def __iter__(self):
+        self.current = 0
+        return self
+
+    def __next__(self):
+        if self.current < len(self.comets):
+            comet = self.comets[self.current]
+            self.current += 1
+            return comet
+        else:
+            raise StopIteration
+
+
 class comet:
     """
     The enemy
@@ -70,10 +99,10 @@ class comet:
     def __init__(self, game):
         self.game = game
         self.icomet = pygame.transform.rotozoom(
-            pygame.image.load("src/comet.png"), 0, 0.05
+            pygame.image.load("src/comet.png"), 0, 0.1
         )
         self.rect = self.icomet.get_rect()
-        self.pos_x = randint(0, lib.width-self.rect.width)
+        self.pos_x = randint(0, lib.width - self.rect.width)
         self.pos_y = 0 - self.rect.height
         self.speed_y = 0
         self.acceleration_y = 9.8 / lib.fps
