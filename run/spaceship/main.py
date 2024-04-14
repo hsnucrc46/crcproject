@@ -38,7 +38,6 @@ class game:
         self.comets = []
         self.comet_pool = sprites.CometPool(self)
         self.healthbar = self.player.healthbar
-        self.ibackground = pygame.image.load("src/bg.png")
         self.last_spawn_comet = pygame.time.get_ticks()
         self.max = lib.max
         self.max_time = lib.max_time
@@ -61,7 +60,7 @@ class game:
 
         self.now = pygame.time.get_ticks()
         if self.now - self.last_spawn_comet >= randint(self.min, self.max):
-            self.comets.append(sprites.comet(self))
+            self.comet_pool.create_comet()
             self.last_spawn_comet = self.now
 
         self.comet_pool.update()  # Update all comets in the CometPool
@@ -82,12 +81,11 @@ class game:
         """
         update to screen
         """
-        self.screen.blit(self.ibackground, (0, 0))
+        self.screen.fill("black")
         self.player.draw(self.screen)
         self.healthbar(self.screen)
         self.timebar(self.screen, self.max_time, quitgame)
-        for s in self.comets:
-            s.draw()
+        self.comet_pool.draw()
         pygame.display.update()
 
     def run(self):
