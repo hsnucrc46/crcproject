@@ -3,7 +3,6 @@
 
 import pygame
 import random
-import sys
 import src.lib as lib
 
 class Player(pygame.sprite.Sprite):

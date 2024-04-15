@@ -29,13 +29,13 @@ class game:
         self.playing = True
         self.point = 0
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.step = lib.step
 
     def new(self):
         self.player = sprites.Spaceship(self)
         self.collision = lib.collision
         self.comets = []
         self.comet_pool = sprites.CometPool(self)
+        self.step = lib.step
         self.healthbar = self.player.healthbar
         self.last_spawn_comet = pygame.time.get_ticks()
         self.max = lib.max

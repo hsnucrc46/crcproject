@@ -42,13 +42,18 @@ class game:
         pygame.display.set_caption(lib.caption)
         pygame.display.set_icon(pygame.image.load("icon.png"))
         self.clock = pygame.time.Clock()
-        screen = pygame.display.set_mode((lib.width, lib.height))
+        self.screen = pygame.display.set_mode((lib.width, lib.height))
+        self.fps = lib.fps
 
     def new(self):
-        all_sprites = pygame.sprite.Group()
-        stones = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.Group()
+        self.stones = pygame.sprite.Group()
         self.player = sprites.Player(self)
-        all_sprites.add(self.player)
+        self.all_sprites.add(self.player)
+        self.step = lib.health_step
+        self.healthbar = self.player.draw_health_bar
+        self.max_time = lib.max_time
+        self.timer = lib.timer
     
     def events(self):
         """
@@ -59,11 +64,30 @@ class game:
                 quitgame()
 
     def update(self):
-        self.player.update()
+        self.all_sprites.update()
+        
+        if len(self.stones) < 5:
+            stone = sprites.Stone()
+            self.all_sprites.add(stone)
+            self.stones.add(stone)
+        
+        hits = pygame.sprite.spritecollide(self.player, self.stones, True)
+        for hit in hits:
+            PLAYER_HEALTH -= 10
+
 
     def draw(self):
+        self.timer()
+        self.healthbar()
+        self.all_sprites.draw(screen)
+    
+    def run(self):
+        while self.playing:
+            self.events()
+            self.update()
+            self.draw()
+            self.clock.tick(self.fps)
         
-        self.player.draw_health_bar()
 
 
 # Create the start button
@@ -76,10 +100,6 @@ def start_game():
 
     # Main loop
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
 
         # Update countdown timer
         countdown_timer -= 1
@@ -89,21 +109,11 @@ def start_game():
             pygame.quit()
             sys.exit()
 
-        if len(stones) < 5:
-            stone = sprites.Stone()
-            all_sprites.add(stone)
-            stones.add(stone)
 
-        all_sprites.update()
 
         # Collisions with stones
-        hits = pygame.sprite.spritecollide(player, stones, True)
-        for hit in hits:
-            PLAYER_HEALTH -= 10
 
         screen.blit(background_img, (0, 0))  # Blit background image
-        all_sprites.draw(screen)
-        draw_health_bar(screen, 10, 10, PLAYER_HEALTH)
 
         # Draw countdown timer
         lib.time = countdown_timer // lib.fps  # Convert frames back to seconds

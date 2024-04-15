@@ -1,7 +1,6 @@
 
 
 import pygame
-from screeninfo import get_monitors
 
 caption = "Stone Defense Game"
 
@@ -11,6 +10,7 @@ player_size = 50
 stone_size = 30
 stone_speed = 10
 player_health = 100
+health_step = -10
 max_time = 30
 time = 0
 fps = 60
