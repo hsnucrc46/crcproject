@@ -31,7 +31,7 @@ screen = pygame.display.set_mode((lib.width, lib.height))
 
 
 # Load your background image here
-background_img = pygame.transform.scale(pygame.image.load("background.jpg"), (lib.width, lib.height))
+#background_img = pygame.transform.scale(pygame.image.load("background.jpg"), (lib.width, lib.height))
 
 
 
@@ -40,7 +40,7 @@ class game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(lib.caption)
-        pygame.display.set_icon(pygame.image.load("icon.png"))
+        pygame.display.set_icon(pygame.image.load("src/icon.png"))
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((lib.width, lib.height))
         self.fps = lib.fps
@@ -79,9 +79,13 @@ class game:
             PLAYER_HEALTH -= 10
             hit.kill()
 
+        screen.blit(self.timer_text, (lib.width - 200, 10))
         if self.time <= 0:
             if PLAYER_HEALTH > 0:
                 print("You WON!")
+            quitgame()
+
+        if self.player.health == 0:
             quitgame()
 
     def draw(self):
@@ -100,32 +104,3 @@ class game:
 
 
 game = game()
-
-
-# Create the start button
-
-def start_game():
-
-    # Create sprites group
-    # https://gamedevacademy.org/pygame-sprite-group-tutorial-complete-guide/
-
-
-    # Main loop
-    while True:
-
-        # Update countdown timer
-
-
-
-        # Collisions with stones
-
-        # Blit background image
-
-        # Draw countdown timer
-        # Convert frames back to seconds
-        
-        screen.blit(timer_text, (lib.width - 200, 10))
-
-        if PLAYER_HEALTH <= 0:
-            quitgame()
-

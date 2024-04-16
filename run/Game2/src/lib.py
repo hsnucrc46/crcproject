@@ -17,6 +17,7 @@ fps = 60
 
 
 # Fonts
+pygame.font.init()
 BUTTON_FONT = pygame.font.Font(None, 40)
 TITLE_FONT = pygame.font.Font(None, 60)
 
@@ -44,10 +45,9 @@ def create_button(surface, text, x, y, width, height, inactive_color, active_col
 
 def intro(self):
 
-
     while True:
         self.screen.fill("black")
-        self.screen.blit(src/background_img, (0, 0))
+        self.screen.blit(pygame.image.load("src/background.jpg"), (0, 0))
         title_text = TITLE_FONT.render(caption, True, "white")
         title_rect = title_text.get_rect(center=(width // 2, height // 3))
         self.screen.blit(title_text, title_rect)
