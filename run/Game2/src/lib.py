@@ -40,3 +40,14 @@ def create_button(surface, text, x, y, width, height, inactive_color, active_col
     button_text = BUTTON_FONT.render(text, True, "black")
     text_rect = button_text.get_rect(center=(x + width / 2, y + height / 2))
     surface.blit(button_text, text_rect)
+
+
+def intro(self):
+
+
+    while True:
+        self.screen.fill("black")
+        self.screen.blit(src/background_img, (0, 0))
+        title_text = TITLE_FONT.render(caption, True, "white")
+        title_rect = title_text.get_rect(center=(width // 2, height // 3))
+        self.screen.blit(title_text, title_rect)

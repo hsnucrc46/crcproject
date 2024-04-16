@@ -53,7 +53,10 @@ class game:
         self.step = lib.health_step
         self.healthbar = self.player.draw_health_bar
         self.max_time = lib.max_time
-        self.timer = lib.timer
+        self.time = 0
+        self.timer_text = lib.BUTTON_FONT.render("Time left: {}s".format((self.max_time-self.time)//self.fps), True, "white")
+
+        self.run()
     
     def events(self):
         """
@@ -74,12 +77,19 @@ class game:
         hits = pygame.sprite.spritecollide(self.player, self.stones, True)
         for hit in hits:
             PLAYER_HEALTH -= 10
+            hit.kill()
 
+        if self.time <= 0:
+            if PLAYER_HEALTH > 0:
+                print("You WON!")
+            quitgame()
 
     def draw(self):
-        self.timer()
+        
+        
         self.healthbar()
         self.all_sprites.draw(screen)
+        pygame.display.update()
     
     def run(self):
         while self.playing:
@@ -87,7 +97,9 @@ class game:
             self.update()
             self.draw()
             self.clock.tick(self.fps)
-        
+
+
+game = game()
 
 
 # Create the start button
@@ -102,49 +114,18 @@ def start_game():
     while True:
 
         # Update countdown timer
-        countdown_timer -= 1
-        if countdown_timer <= 0:
-            if PLAYER_HEALTH > 0:
-                print("You WON!")
-            pygame.quit()
-            sys.exit()
 
 
 
         # Collisions with stones
 
-        screen.blit(background_img, (0, 0))  # Blit background image
+        # Blit background image
 
         # Draw countdown timer
-        lib.time = countdown_timer // lib.fps  # Convert frames back to seconds
-        timer_text = lib.BUTTON_FONT.render("Time left: {}s".format(countdown_seconds), True, "white")
+        # Convert frames back to seconds
+        
         screen.blit(timer_text, (lib.width - 200, 10))
 
         if PLAYER_HEALTH <= 0:
             quitgame()
 
-        pygame.display.update()
-        self.clock.tick(lib.fps)
-
-def main():
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-        screen.fill("black")
-
-        screen.blit(background_img, (0, 0))
-
-        title_text = lib.TITLE_FONT.render(lib.caption, True, "white")
-        title_rect = title_text.get_rect(center=(lib.width // 2, lib.height // 3))
-        screen.blit(title_text, title_rect)
-
-        # Start button
-        lib.create_button(screen, "Start", 300, 350, 200, 80, "grey", "honeydew1", start_game)
-
-        pygame.display.flip()
-        clock.tick(lib.fps)
-
-main()

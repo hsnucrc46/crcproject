@@ -82,7 +82,7 @@ class game:
         update to screen
         """
         self.screen.fill("black")
-        self.player.draw(self.screen)
+        self.player.draw()
         self.healthbar(self.screen)
         self.timebar(self.screen, self.max_time, quitgame)
         self.comet_pool.draw()
