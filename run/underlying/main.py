@@ -39,7 +39,8 @@ class game:
         self.create_button = lib.create_button
         self.fps = lib.fps
         # fonts
-        self.title_font = pygame.font.Font(None, 60)
+        self.title_font = pygame.font.Font(None, 100)
+        self.time_font = pygame.font.Font(None, 40)
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         pygame.display.set_caption(self.caption)
@@ -53,6 +54,7 @@ class game:
             center=(self.width // 2, self.height // 3)
         )
         self.clock = pygame.time.Clock()
+        self.in_intro = True
         self.playing = True
         self.countdown_tick = self.time_left * 60  # reset countdown timer
 
@@ -66,10 +68,14 @@ class game:
         self.draw_health_bar = lib.draw_health_bar
 
     def intro(self):
-        self.screen.fill("black")
-        self.screen.blit(self.ibackground, (0, 0))
         pygame.display.set_icon(self.icon)
-        self.screen.blit(self.title_text, self.title_rect)
+        while self.in_intro:
+            self.events()
+            self.screen.blit(self.ibackground, (0, 0))
+            self.screen.blit(self.title_text, self.title_rect)
+            self.create_button(self.screen, "Start", self.width // 2 - 200, self.height // 3 * 2, 400, 160, "grey", (241, 250, 238), self.run)
+            pygame.display.flip()
+
 
     def run(self):
         """
@@ -92,8 +98,8 @@ class game:
     def update(self):
 
             # update countdown timer
-        self.countdown_timer -= 1
-        if self.health > 0 and self.countdown_timer <= 0:
+        self.countdown_tick -= 1
+        if self.player.health > 0 and self.countdown_tick <= 0:
             print("you won!")
             quitgame()
 
@@ -107,20 +113,20 @@ class game:
         # collisions with self.comets
         hits = pygame.sprite.spritecollide(self.player, self.comets, True)
         for hit in hits:
-            self.health -= 10
+            self.player.health -= 10
             hit.kill()
 
-            if self.health <= 0:
+            if self.player.health <= 0:
                 quitgame()
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
-        self.sprites_group.draw()
-        self.draw_health_bar(self.screen, 10, 10, self.health)
+        self.sprites_group.draw(self.screen)
+        self.draw_health_bar(self.screen, 10, 10, self.player.health)
 
         # draw countdown timer
-        self.time_left = self.countdown_timer // 60  # convert frames back to seconds
-        self.time_text = self.button_font.render(
+        self.time_left = self.countdown_tick // 60  # convert frames back to seconds
+        self.time_text = self.time_font.render(
             "time left: {}s".format(self.time_left), True, "white"
         )
         self.screen.blit(self.time_text, (self.width - 200, 10))
@@ -128,6 +134,5 @@ class game:
 
 
 game = game()
-if __name__ == "__intro__":
-    game.intro()
-    game.run()
+#if __name__ == "__intro__":
+game.intro()

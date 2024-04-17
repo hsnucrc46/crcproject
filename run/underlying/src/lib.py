@@ -11,7 +11,7 @@ from rich import print
 from screeninfo import get_monitors
 import sys
 
-caption = "comet defense game"
+caption = "Comet defense game"
 color = "black"
 fps = 60
 max_health = 100
@@ -22,11 +22,11 @@ min = 250
 max_time = 30
 step = -10
 time = 0
-directions = {"up", "down", "left", "right"}
+directions = ["up", "down", "left", "right"]
 
 # fonts
 pygame.font.init()
-button_font = pygame.font.Font(None, 40)
+button_font = pygame.font.Font(None, 80)
 
 
 def quitgame(point=-1):
@@ -42,10 +42,8 @@ def draw_health_bar(surface, x, y, health):
     bar_length = 100
     bar_height = 10
     fill = (health / 100) * bar_length
-    outline_rect = pygame.rect(x, y, bar_length, bar_height)
-    fill_rect = pygame.rect(x, y, fill, bar_height)
-    pygame.draw.rect(surface, "red", fill_rect)
-    pygame.draw.rect(surface, "white", outline_rect, 2)
+    pygame.draw.rect(surface, "red", (x, y, fill, bar_height))
+    pygame.draw.rect(surface, "white", (x, y, bar_length, bar_height), 2)
 
 
 # create the start button

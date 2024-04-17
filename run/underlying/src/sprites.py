@@ -19,16 +19,16 @@ class player(pygame.sprite.Sprite):
         self.health = lib.max_health
         self.width = lib.width
         self.player_size = 50
-        self.iplayer = pygame.transform.scale(
+        self.image = pygame.transform.scale(
             pygame.image.load("src/player.png"), (self.player_size, self.player_size)
         )
-        self.rect = self.iplayer.get_rect(center=(self.width // 2, self.height // 2))
+        self.rect = self.image.get_rect(center=(self.width // 2, self.height // 2))
 
     def update(self):
         self.rect.center = pygame.mouse.get_pos()
 
     def draw(self):
-        self.game.screen.blit(self.ispaceship, (self.pos_x, self.pos_y))
+        self.game.screen.blit(self.image, (self.pos_x, self.pos_y))
 
 
 class comet(pygame.sprite.Sprite):
@@ -36,11 +36,11 @@ class comet(pygame.sprite.Sprite):
         super().__init__()
         self.game = game
         self.comet_size = 30
-        self.icomet = pygame.transform.scale(
+        self.image = pygame.transform.scale(
             pygame.image.load("src/comet.png"),
             (self.comet_size, self.comet_size),
         )
-        self.rect = self.icomet.get_rect()
+        self.rect = self.image.get_rect()
         self.height = lib.height
         self.width = lib.width
         self.direction = random.choice(lib.directions)
@@ -80,4 +80,4 @@ class comet(pygame.sprite.Sprite):
             self.kill()
     
     def draw(self):
-        self.game.screen.blit(self.icomet, (self.pos_x, self.pos_y))
+        self.game.screen.blit(self.image, (self.pos_x, self.pos_y))
