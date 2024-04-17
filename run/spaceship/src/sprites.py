@@ -12,7 +12,7 @@ import pygame
 import src.lib as lib
 
 
-class spaceship:
+class Spaceship:
     """
     The player
     """
@@ -54,7 +54,7 @@ class spaceship:
             self.pos_x = self.width - self.rect.width
         self.rect.topleft = (self.pos_x, self.pos_y)
 
-    def draw(self, screen):
+    def draw(self):
         self.game.screen.blit(self.ispaceship, (self.pos_x, self.pos_y))
 
 

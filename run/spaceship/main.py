@@ -29,19 +29,19 @@ class game:
         self.playing = True
         self.point = 0
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.step = lib.step
-        self.timebar = lib.timebar
 
     def new(self):
-        self.player = sprites.spaceship(self)
+        self.player = sprites.Spaceship(self)
         self.collision = lib.collision
         self.comets = []
         self.comet_pool = sprites.CometPool(self)
+        self.step = lib.step
         self.healthbar = self.player.healthbar
         self.last_spawn_comet = pygame.time.get_ticks()
         self.max = lib.max
-        self.max_time = lib.max_time
         self.min = lib.min
+        self.max_time = lib.max_time
+        self.timebar = lib.timebar
         self.run()
 
     def events(self):
@@ -82,7 +82,7 @@ class game:
         update to screen
         """
         self.screen.fill("black")
-        self.player.draw(self.screen)
+        self.player.draw()
         self.healthbar(self.screen)
         self.timebar(self.screen, self.max_time, quitgame)
         self.comet_pool.draw()
