@@ -10,11 +10,11 @@ done :
 6. if the player's health is 0%, the game will end
 7. there is a timer : 30 seconds
 8. if the timer stops and the player's health is more than 0% -> print("you won")
-9. the healthbar and timer is displayed on the self.screen
+9. the healthbar and timer is displayed on the screen
 
 TODO:
-    1. make the player stay in the middle of the self.screen
-2. make the game full self.screen
+    1. make the player stay in the middle of the screen
+2. make the game full screen
 3. make the shield to protect the player
 4. make a function to shoot comets
 5. modularize the sprites and the functions
@@ -25,6 +25,7 @@ import sys
 
 import pygame
 import src.lib as lib
+import src.sprites as sprites
 
 pygame.init()
 
@@ -39,8 +40,8 @@ class game:
         self.caption = lib.caption
         self.create_button = lib.create_button
         # fonts
-        self.button_font = pygame.font.font(none, 40)
-        self.title_font = pygame.font.font(none, 60)
+        self.button_font = pygame.font.Font(None, 40)
+        self.title_font = pygame.font.Font(None, 60)
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         pygame.display.set_caption(self.caption)
@@ -50,7 +51,7 @@ class game:
             self.ibackground, (self.width, self.height)
         )
 
-        self.title_text = self.title_font.render(self.caption, true, white)
+        self.title_text = self.title_font.render(self.caption, True, "white")
         self.title_rect = self.title_text.get_rect(
             center=(self.width // 2, self.height // 3)
         )
@@ -60,22 +61,19 @@ class game:
 
         # create sprites group
         # https://gamedevacademy.org/pygame-sprite-group-tutorial-complete-guide/
-        self.sprites_group = pygame.sprite.group()
-        comets = pygame.sprite.group()
+        self.sprites_group = pygame.sprite.Group()
+        self.comets = pygame.sprite.Group()
 
-        player = player()
-        self.sprites_group.add(player)
+        self.player = sprites.player
+        self.sprites_group.add(self.player)
 
     def intro(self):
-        self.screen.fill(black)
+        self.screen.fill("black")
 
         self.screen.blit(self.ibackground, (0, 0))
 
         pygame.display.set_icon(icon)
         self.screen.blit(self.title_text, self.title_rect)
-
-        # start button
-        create_button(self.screen, "start", 300, 350, 200, 80, gray, light, start_game)
 
     def run(self):
         """
@@ -103,15 +101,15 @@ class game:
                 pygame.quit()
                 sys.exit()
 
-            if len(comets) < 5:
-                comet = comet()
-                self.sprites_group.add(comet)
-                comets.add(comet)
+            if len(self.comets) < 5:
+                self.comet = sprites.comet
+                self.sprites_group.add(self.comet)
+                self.comets.add(self.comet)
 
             self.sprites_group.update()
 
-            # collisions with comets
-            hits = pygame.sprite.spritecollide(player, comets, true)
+            # collisions with self.comets
+            hits = pygame.sprite.spritecollide(self.player, self.comets, True)
             for hit in hits:
                 self.health -= 10
 
@@ -127,7 +125,7 @@ class game:
         # draw countdown timer
         self.time_left = self.countdown_timer // 60  # convert frames back to seconds
         self.time_text = self.button_font.render(
-            "time left: {}s".format(self.time_left), true, white
+            "time left: {}s".format(self.time_left), True, "white"
         )
         self.screen.blit(self.time_text, (self.width - 200, 10))
         pygame.display.flip()
