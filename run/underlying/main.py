@@ -115,7 +115,7 @@ class game:
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
-        self.sprites_group.draw(self.screen)
+        self.sprites_group.draw()
         self.draw_health_bar(self.screen, 10, 10, self.health)
 
         # draw countdown timer
