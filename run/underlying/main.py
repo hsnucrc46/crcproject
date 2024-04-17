@@ -64,8 +64,9 @@ class game:
             PLAYER_HEALTH -= 10
             hit.kill()
 
+        self.time +=1
         screen.blit(self.timer_text, (lib.width - 200, 10))
-        if self.time <= 0:
+        if self.time == self.max_time:
             if PLAYER_HEALTH > 0:
                 print("You WON!")
             quitgame()
@@ -75,7 +76,7 @@ class game:
 
     def draw(self):
         
-        
+        self.screen.fill("black")
         self.screen.blit(pygame.image.load("src/background.jpg"), (0, 0))
         self.healthbar()
         self.all_sprites.draw(screen)

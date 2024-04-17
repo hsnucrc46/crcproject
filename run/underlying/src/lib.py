@@ -54,10 +54,11 @@ def intro(clock, screen, action):
 
     while True:
         screen.fill("black")
+        screen.blit(pygame.image.load("src/background.jpg"), (0, 0))
         title_text = TITLE_FONT.render(caption, True, "white")
         title_rect = title_text.get_rect(center=(width // 2, height // 3))
         screen.blit(title_text, title_rect)
         create_button(
-            screen, "start", 1, 1, 1, 1, "grey", "honeydew2", action)
+            screen, "start", 350, 300, 100, 50, "grey", "honeydew2", action
         )
         clock.tick(fps)
