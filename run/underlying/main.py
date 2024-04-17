@@ -61,11 +61,11 @@ class game:
 
         # create sprites group
         # https://gamedevacademy.org/pygame-sprite-group-tutorial-complete-guide/
-        self.sprites_group = pygame.sprite.Group()
+        self.players = pygame.sprite.Group()
         self.comets = pygame.sprite.Group()
 
         self.player = sprites.player
-        self.sprites_group.add(self.player)
+        self.players.add(self.player)
 
     def intro(self):
         self.screen.fill("black")
@@ -103,10 +103,10 @@ class game:
 
             if len(self.comets) < 5:
                 self.comet = sprites.comet
-                self.sprites_group.add(self.comet)
+                self.players.add(self.player)
                 self.comets.add(self.comet)
 
-            self.sprites_group.update()
+            self.players.update()
 
             # collisions with self.comets
             hits = pygame.sprite.spritecollide(self.player, self.comets, True)
@@ -119,7 +119,7 @@ class game:
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
-        self.sprites_group.draw(self.screen)
+        self.players.draw(self.screen)
         draw_health_bar(self.screen, 10, 10, self.health)
 
         # draw countdown timer
