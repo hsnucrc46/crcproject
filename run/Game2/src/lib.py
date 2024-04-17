@@ -1,5 +1,3 @@
-
-
 import pygame
 
 caption = "Stone Defense Game"
@@ -27,7 +25,9 @@ def quitgame():
     quit()
 
 
-def create_button(surface, text, x, y, width, height, inactive_color, active_color, action):
+def create_button(
+    surface, text, x, y, width, height, inactive_color, active_color, action
+):
     mouse_pos = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
 

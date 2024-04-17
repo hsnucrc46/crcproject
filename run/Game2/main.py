@@ -31,8 +31,7 @@ screen = pygame.display.set_mode((lib.width, lib.height))
 
 
 # Load your background image here
-#background_img = pygame.transform.scale(pygame.image.load("background.jpg"), (lib.width, lib.height))
-
+# background_img = pygame.transform.scale(pygame.image.load("background.jpg"), (lib.width, lib.height))
 
 
 class game:
@@ -54,10 +53,14 @@ class game:
         self.healthbar = self.player.draw_health_bar
         self.max_time = lib.max_time
         self.time = 0
-        self.timer_text = lib.BUTTON_FONT.render("Time left: {}s".format((self.max_time-self.time)//self.fps), True, "white")
+        self.timer_text = lib.BUTTON_FONT.render(
+            "Time left: {}s".format((self.max_time - self.time) // self.fps),
+            True,
+            "white",
+        )
 
         self.run()
-    
+
     def events(self):
         """
         know when to quit pygame
@@ -68,12 +71,12 @@ class game:
 
     def update(self):
         self.all_sprites.update()
-        
+
         if len(self.stones) < 5:
             stone = sprites.Stone()
             self.all_sprites.add(stone)
             self.stones.add(stone)
-        
+
         hits = pygame.sprite.spritecollide(self.player, self.stones, True)
         for hit in hits:
             PLAYER_HEALTH -= 10
@@ -89,12 +92,11 @@ class game:
             quitgame()
 
     def draw(self):
-        
-        
+
         self.healthbar()
         self.all_sprites.draw(screen)
         pygame.display.update()
-    
+
     def run(self):
         while self.playing:
             self.events()

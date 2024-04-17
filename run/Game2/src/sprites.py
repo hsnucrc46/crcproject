@@ -1,15 +1,17 @@
-
-
-
 import pygame
 import random
 import src.lib as lib
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load("player.png"), (lib.player_size, lib.player_size))
-        self.rect = self.image.get_rect(center=(lib.SCREEN_WIDTH // 2, lib.SCREEN_HEIGHT // 2))
+        self.image = pygame.transform.scale(
+            pygame.image.load("player.png"), (lib.player_size, lib.player_size)
+        )
+        self.rect = self.image.get_rect(
+            center=(lib.SCREEN_WIDTH // 2, lib.SCREEN_HEIGHT // 2)
+        )
         self.health = 100
 
     def update(self):
@@ -28,7 +30,9 @@ class Player(pygame.sprite.Sprite):
 class Stone(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load("stone.png"), (lib.STONE_SIZE, lib.STONE_SIZE))
+        self.image = pygame.transform.scale(
+            pygame.image.load("stone.png"), (lib.STONE_SIZE, lib.STONE_SIZE)
+        )
         self.rect = self.image.get_rect()
         self.direction = random.choice(["right", "left", "up", "down"])
         if self.direction == "right":
@@ -56,5 +60,10 @@ class Stone(pygame.sprite.Sprite):
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
 
-        if self.rect.right < 0 or self.rect.left > lib.width or self.rect.bottom < 0 or self.rect.top > lib.height:
+        if (
+            self.rect.right < 0
+            or self.rect.left > lib.width
+            or self.rect.bottom < 0
+            or self.rect.top > lib.height
+        ):
             self.kill()
