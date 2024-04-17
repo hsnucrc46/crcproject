@@ -61,15 +61,13 @@ class game:
         self.sprites_group = pygame.sprite.Group()
         self.comets = pygame.sprite.Group()
 
-        self.player = sprites.player
+        self.player = sprites.player(game)
         self.sprites_group.add(self.player)
         self.draw_health_bar = lib.draw_health_bar
 
     def intro(self):
         self.screen.fill("black")
-
         self.screen.blit(self.ibackground, (0, 0))
-
         pygame.display.set_icon(self.icon)
         self.screen.blit(self.title_text, self.title_rect)
 
@@ -94,13 +92,13 @@ class game:
     def update(self):
 
             # update countdown timer
-        self.countdown_tick -= 1
-        if self.health > 0 and self.countdown_tick <= 0:
+        self.countdown_timer -= 1
+        if self.health > 0 and self.countdown_timer <= 0:
             print("you won!")
             quitgame()
 
         if len(self.comets) < 5:
-            self.comet = sprites.comet()
+            self.comet = sprites.comet(game)
             self.sprites_group.add(self.comet)
             self.comets.add(self.comet)
 
@@ -121,7 +119,7 @@ class game:
         self.draw_health_bar(self.screen, 10, 10, self.health)
 
         # draw countdown timer
-        self.time_left = self.countdown_tick // 60  # convert frames back to seconds
+        self.time_left = self.countdown_timer // 60  # convert frames back to seconds
         self.time_text = self.button_font.render(
             "time left: {}s".format(self.time_left), True, "white"
         )
