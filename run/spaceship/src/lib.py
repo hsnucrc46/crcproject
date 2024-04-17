@@ -134,14 +134,7 @@ def intro(clock, screen, action):
 def timebar(screen, max_time, action):
     global time
     pygame.draw.rect(
-        screen,
-        "dark red",
-        (
-            width * 9 / 10,
-            height / 5,
-            width / 50,
-            height * 2 / 5
-        )
+        screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)
     )
     if time < max_time * fps:
         pygame.draw.rect(
