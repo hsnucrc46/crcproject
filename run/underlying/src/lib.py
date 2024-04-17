@@ -9,6 +9,7 @@ Description: This file is a preference file, set your color, fps, player speed a
 import pygame
 from rich import print
 from screeninfo import get_monitors
+import sys
 
 caption = "comet defense game"
 color = "black"
@@ -21,7 +22,11 @@ min = 250
 max_time = 30
 step = -10
 time = 0
-direction = "up"
+directions = {"up", "down", "left", "right"}
+
+# fonts
+pygame.font.init()
+button_font = pygame.font.Font(None, 40)
 
 
 def quitgame(point=-1):
@@ -30,7 +35,7 @@ def quitgame(point=-1):
     elif not point == -1:
         print("[b magenta]你輸了[/b magenta]，最後得了", point, "分")
     pygame.quit()
-    quit()
+    sys.exit()
 
 
 def draw_health_bar(surface, x, y, health):
@@ -39,8 +44,8 @@ def draw_health_bar(surface, x, y, health):
     fill = (health / 100) * bar_length
     outline_rect = pygame.rect(x, y, bar_length, bar_height)
     fill_rect = pygame.rect(x, y, fill, bar_height)
-    pygame.draw.rect(surface, red, fill_rect)
-    pygame.draw.rect(surface, white, outline_rect, 2)
+    pygame.draw.rect(surface, "red", fill_rect)
+    pygame.draw.rect(surface, "white", outline_rect, 2)
 
 
 # create the start button
@@ -57,6 +62,6 @@ def create_button(
     else:
         pygame.draw.rect(surface, inactive_color, (x, y, width, height))
 
-    button_text = button_font.render(text, true, black)
+    button_text = button_font.render(text, True, "black")
     text_rect = button_text.get_rect(center=(x + width / 2, y + height / 2))
     surface.blit(button_text, text_rect)

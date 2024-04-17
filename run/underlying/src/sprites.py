@@ -6,9 +6,8 @@ Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
 """
 
-from random import randint
-
 import pygame
+import random
 import src.lib as lib
 
 
@@ -31,19 +30,19 @@ class player(pygame.sprite.Sprite):
 class comet(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.comet_size = 30
         self.icomet = pygame.transform.scale(
             pygame.image.load("src.comet.png"),
-            (self.self.comet_size, self.self.comet_size),
+            (self.comet_size, self.comet_size),
         )
         self.rect = self.icomet.get_rect()
         self.height = lib.height
         self.width = lib.width
-        self.direction = lib.direction
-        self.comet_size = 30
+        self.direction = random.choice(lib.directions)
         self.comet_speed = 10
         match self.direction:
             case "right":
-                self.rect.x = 0 - self.comet_size
+                self.rect.x = -self.comet_size
                 self.rect.y = random.randint(0, self.height - self.comet_size)
                 self.speed_x = self.comet_speed
                 self.speed_y = 0
@@ -59,7 +58,7 @@ class comet(pygame.sprite.Sprite):
                 self.speed_y = -self.comet_speed
             case "down":
                 self.rect.x = random.randint(0, self.width - self.comet_size)
-                self.rect.y = 0 - self.comet_size
+                self.rect.y = -self.comet_size
                 self.speed_x = 0
                 self.speed_y = self.comet_speed
 

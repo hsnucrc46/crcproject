@@ -20,35 +20,32 @@ TODO:
 5. modularize the sprites and the functions
 """
 
-import random
-import sys
-
 import pygame
 import src.lib as lib
 import src.sprites as sprites
 
 pygame.init()
 
+quitgame = lib.quitgame
 
 class game:
     def __init__(self):
 
         self.icon = pygame.image.load("src/icon.png")
-        self.time_left = 30
+        self.time_left = lib.max_time
         self.height = lib.height
         self.width = lib.width
         self.caption = lib.caption
         self.create_button = lib.create_button
+        self.fps = lib.fps
         # fonts
-        self.button_font = pygame.font.Font(None, 40)
         self.title_font = pygame.font.Font(None, 60)
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         pygame.display.set_caption(self.caption)
 
-        self.ibackground = pygame.image.load("src/background.jpg")
         self.ibackground = pygame.transform.scale(
-            self.ibackground, (self.width, self.height)
+            pygame.image.load("src/background.jpg"), (self.width, self.height)
         )
 
         self.title_text = self.title_font.render(self.caption, True, "white")
@@ -57,7 +54,7 @@ class game:
         )
         self.clock = pygame.time.Clock()
         self.playing = True
-        self.countdown_timer = self.time_left * 60  # reset countdown timer
+        self.countdown_tick = self.time_left * 60  # reset countdown timer
 
         # create sprites group
         # https://gamedevacademy.org/pygame-sprite-group-tutorial-complete-guide/
@@ -66,13 +63,14 @@ class game:
 
         self.player = sprites.player
         self.sprites_group.add(self.player)
+        self.draw_health_bar = lib.draw_health_bar
 
     def intro(self):
         self.screen.fill("black")
 
         self.screen.blit(self.ibackground, (0, 0))
 
-        pygame.display.set_icon(icon)
+        pygame.display.set_icon(self.icon)
         self.screen.blit(self.title_text, self.title_rect)
 
     def run(self):
@@ -86,44 +84,44 @@ class game:
             self.clock.tick(self.fps)
 
     def events(self):
+        """
+        know when to quit pygame
+        """
         for event in pygame.event.get():
-            if event.type == pygame.quit:
-                pygame.quit()
-                sys.exit()
+            if event.type == pygame.QUIT:
+                quitgame()
 
     def update(self):
 
-        while self.playing:
             # update countdown timer
-            self.countdown_timer -= 1
-            if self.health > 0 and self.countdown_timer <= 0:
-                print("you won!")
-                pygame.quit()
-                sys.exit()
+        self.countdown_tick -= 1
+        if self.health > 0 and self.countdown_tick <= 0:
+            print("you won!")
+            quitgame()
 
-            if len(self.comets) < 5:
-                self.comet = sprites.comet
-                self.sprites_group.add(self.comet)
-                self.comets.add(self.comet)
+        if len(self.comets) < 5:
+            self.comet = sprites.comet()
+            self.sprites_group.add(self.comet)
+            self.comets.add(self.comet)
 
-            self.sprites_group.update()
+        self.sprites_group.update()
 
-            # collisions with self.comets
-            hits = pygame.sprite.spritecollide(self.player, self.comets, True)
-            for hit in hits:
-                self.health -= 10
+        # collisions with self.comets
+        hits = pygame.sprite.spritecollide(self.player, self.comets, True)
+        for hit in hits:
+            self.health -= 10
+            hit.kill()
 
             if self.health <= 0:
-                pygame.quit()
-                sys.exit()
+                quitgame()
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
         self.sprites_group.draw(self.screen)
-        draw_health_bar(self.screen, 10, 10, self.health)
+        self.draw_health_bar(self.screen, 10, 10, self.health)
 
         # draw countdown timer
-        self.time_left = self.countdown_timer // 60  # convert frames back to seconds
+        self.time_left = self.countdown_tick // 60  # convert frames back to seconds
         self.time_text = self.button_font.render(
             "time left: {}s".format(self.time_left), True, "white"
         )
