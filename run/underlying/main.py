@@ -1,48 +1,88 @@
 """
-file: main.py
-author: 
-email: hsnu.crc46th@gmail.com
-github: https://github.com/hsnucrc46
-description: interacts sprites declared in src/sprites.py
+4/14
+
+done :
+    1. click the start button to start the game
+2. the player moves with the mouse
+3. the comets fly from all sides
+4. the speed of the comets can be changed
+5. if a comet hits the player, the player's health decreases by 10%
+6. if the player's health is 0%, the game will end
+7. there is a timer : 30 seconds
+8. if the timer stops and the player's health is more than 0% -> print("you won")
+9. the healthbar and timer is displayed on the screen
+
+TODO:
+    1. make the player stay in the middle of the screen
+2. make the game full screen
+3. make the shield to protect the player
+4. make a function to shoot comets
+5. modularize the sprites and the functions
 """
 
 import pygame
 import src.lib as lib
 import src.sprites as sprites
 
+pygame.init()
+
 quitgame = lib.quitgame
 
-screen = pygame.display.set_mode((lib.width, lib.height))
-
-
-# Load your background image here
-#background_img = pygame.transform.scale(pygame.image.load("background.jpg"), (lib.width, lib.height))
-
-
-
 class game:
-
     def __init__(self):
-        pygame.init()
-        pygame.display.set_caption(lib.caption)
-        pygame.display.set_icon(pygame.image.load("src/icon.png"))
-        self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode((lib.width, lib.height))
+
+        self.icon = pygame.image.load("src/icon.png")
+        self.time_left = lib.max_time
+        self.height = lib.height
+        self.width = lib.width
+        self.caption = lib.caption
+        self.create_button = lib.create_button
         self.fps = lib.fps
+        # fonts
+        self.title_font = pygame.font.Font(None, 60)
 
-    def new(self):
-        self.all_sprites = pygame.sprite.Group()
-        self.stones = pygame.sprite.Group()
-        self.player = sprites.Player(self)
-        self.all_sprites.add(self.player)
-        self.step = lib.health_step
-        self.healthbar = self.player.draw_health_bar
-        self.max_time = lib.max_time
-        self.time = 0
-        self.timer_text = lib.BUTTON_FONT.render("Time left: {}s".format((self.max_time-self.time)//self.fps), True, "white")
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        pygame.display.set_caption(self.caption)
 
-        self.run()
-    
+        self.ibackground = pygame.transform.scale(
+            pygame.image.load("src/background.jpg"), (self.width, self.height)
+        )
+
+        self.title_text = self.title_font.render(self.caption, True, "white")
+        self.title_rect = self.title_text.get_rect(
+            center=(self.width // 2, self.height // 3)
+        )
+        self.clock = pygame.time.Clock()
+        self.playing = True
+        self.countdown_tick = self.time_left * 60  # reset countdown timer
+
+        # create sprites group
+        # https://gamedevacademy.org/pygame-sprite-group-tutorial-complete-guide/
+        self.sprites_group = pygame.sprite.Group()
+        self.comets = pygame.sprite.Group()
+
+        self.player = sprites.player
+        self.sprites_group.add(self.player)
+        self.draw_health_bar = lib.draw_health_bar
+
+    def intro(self):
+        self.screen.fill("black")
+
+        self.screen.blit(self.ibackground, (0, 0))
+
+        pygame.display.set_icon(self.icon)
+        self.screen.blit(self.title_text, self.title_rect)
+
+    def run(self):
+        """
+        what actually needs to be done after initializing the game
+        """
+        while self.playing:
+            self.events()
+            self.update()
+            self.draw()
+            self.clock.tick(self.fps)
+
     def events(self):
         """
         know when to quit pygame
@@ -52,43 +92,44 @@ class game:
                 quitgame()
 
     def update(self):
-        self.all_sprites.update()
-        
-        if len(self.stones) < 5:
-            stone = sprites.Stone()
-            self.all_sprites.add(stone)
-            self.stones.add(stone)
-        
-        hits = pygame.sprite.spritecollide(self.player, self.stones, True)
+
+            # update countdown timer
+        self.countdown_timer -= 1
+        if self.health > 0 and self.countdown_timer <= 0:
+            print("you won!")
+            quitgame()
+
+        if len(self.comets) < 5:
+            self.comet = sprites.comet
+            self.sprites_group.add(self.comet)
+            self.comets.add(self.comet)
+
+        self.sprites_group.update()
+
+        # collisions with self.comets
+        hits = pygame.sprite.spritecollide(self.player, self.comets, True)
         for hit in hits:
-            PLAYER_HEALTH -= 10
+            self.health -= 10
             hit.kill()
 
-        self.time +=1
-        screen.blit(self.timer_text, (lib.width - 200, 10))
-        if self.time == self.max_time:
-            if PLAYER_HEALTH > 0:
-                print("You WON!")
-            quitgame()
-
-        if self.player.health == 0:
-            quitgame()
+            if self.health <= 0:
+                quitgame()
 
     def draw(self):
-        
-        self.screen.fill("black")
-        self.screen.blit(pygame.image.load("src/background.jpg"), (0, 0))
-        self.healthbar()
-        self.all_sprites.draw(screen)
-        pygame.display.update()
-    
-    def run(self):
-        while self.playing:
-            self.events()
-            self.update()
-            self.draw()
-            self.clock.tick(self.fps)
+        self.screen.blit(self.ibackground, (0, 0))  # blit background image
+        self.sprites_group.draw(self.screen)
+        self.draw_health_bar(self.screen, 10, 10, self.health)
+
+        # draw countdown timer
+        self.time_left = self.countdown_timer // 60  # convert frames back to seconds
+        self.time_text = self.button_font.render(
+            "time left: {}s".format(self.time_left), True, "white"
+        )
+        self.screen.blit(self.time_text, (self.width - 200, 10))
+        pygame.display.flip()
 
 
 game = game()
-lib.intro(game.clock, game.screen, game)
+if __name__ == "__intro__":
+    game.intro()
+    game.run()
