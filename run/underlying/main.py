@@ -42,6 +42,7 @@ class game:
         # fonts
         self.title_font = pygame.font.Font(None, 100)
         self.time_font = pygame.font.Font(None, 40)
+        self.win_font = pygame.font.Font(None, 100)
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         pygame.display.set_caption(self.caption)
@@ -91,11 +92,13 @@ class game:
         """
         what actually needs to be done after initializing the game
         """
+        self.in_intro = False
         while self.playing:
             self.events()
             self.update()
             self.draw()
             self.clock.tick(self.fps)
+        self.win()
 
     def events(self):
         """
@@ -110,8 +113,7 @@ class game:
         # update countdown timer
         self.countdown_tick -= 1
         if self.player.health > 0 and self.countdown_tick <= 0:
-            print("you won!")
-            quitgame()
+            self.playing = False
 
         if len(self.comets) < 5:
             self.comet = sprites.comet(game)
@@ -142,6 +144,26 @@ class game:
         self.screen.blit(self.time_text, (self.width - 200, 10))
         pygame.display.flip()
 
+    def win(self):
+        print("you won!")
+        win_text = self.win_font.render("You WIN!", True, "white")
+        win_rect = win_text.get_rect(center=(self.width // 2, self.height // 2 - 100))
+        while True:
+            self.events()
+            self.screen.blit(self.ibackground, (0, 0))
+            self.screen.blit(win_text, win_rect)
+            self.create_button(
+                self.screen,
+                "Exit",
+                self.width // 2 - 200,
+                self.height // 3 * 2,
+                400,
+                160,
+                "grey",
+                (241, 250, 238),
+                quitgame
+            )
+            pygame.display.flip()
 
 game = game()
 game.intro()

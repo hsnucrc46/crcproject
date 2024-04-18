@@ -48,14 +48,14 @@ TITLE_FONT = pygame.font.Font("PixelifySans-VariableFont_wght.ttf", 60)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Stone Defense Game")
 
-background_img = pygame.image.load("background.jpg")  # Load your background image here
+background_img = pygame.image.load("src/background.jpg")  # Load your background image here
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
-player_img = pygame.image.load("player.png")
+player_img = pygame.image.load("src/player.png")
 player_img = pygame.transform.scale(player_img, (PLAYER_SIZE, PLAYER_SIZE))
 
-stone_img = pygame.image.load("stone.png")
+stone_img = pygame.image.load("src/stone.png")
 stone_img = pygame.transform.scale(stone_img, (STONE_SIZE, STONE_SIZE))
-icon_img = pygame.image.load("icon.png")
+icon_img = pygame.image.load("src/icon.png")
 pygame.display.set_icon(icon_img)
 
 clock = pygame.time.Clock()
