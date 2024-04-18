@@ -21,7 +21,7 @@ width = get_monitors()[0].width
 max = 2000
 min = 250
 step = -10
-max_time = 5
+max_time = 30
 time = 0
 directions = ["up", "down", "left", "right"]
 
