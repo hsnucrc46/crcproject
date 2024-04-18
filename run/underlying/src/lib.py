@@ -6,10 +6,11 @@ Github: https://github.com/hsnucrc46
 Description: This file is a preference file, set your color, fps, player speed and more
 """
 
+import sys
+
 import pygame
 from rich import print
 from screeninfo import get_monitors
-import sys
 
 caption = "Comet defense game"
 color = "black"
@@ -29,18 +30,14 @@ pygame.font.init()
 button_font = pygame.font.Font(None, 80)
 
 
-def quitgame(point=-1):
-    if not point:
-        print("[b magenta]你輸了[/b magenta]:skull:，最後得了 0 分")
-    elif not point == -1:
-        print("[b magenta]你輸了[/b magenta]，最後得了", point, "分")
+def quitgame():
     pygame.quit()
-    sys.exit()
+    quit()
 
 
 def draw_health_bar(surface, x, y, health):
-    bar_length = 100
-    bar_height = 10
+    bar_length = 1000
+    bar_height = 50
     fill = (health / 100) * bar_length
     pygame.draw.rect(surface, "red", (x, y, fill, bar_height))
     pygame.draw.rect(surface, "white", (x, y, bar_length, bar_height), 2)

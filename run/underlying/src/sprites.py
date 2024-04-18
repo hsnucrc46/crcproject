@@ -6,8 +6,9 @@ Github: https://github.com/hsnucrc46
 Description: Sprites(objects) declaration
 """
 
-import pygame
 import random
+
+import pygame
 import src.lib as lib
 
 
@@ -18,7 +19,7 @@ class player(pygame.sprite.Sprite):
         self.height = lib.height
         self.health = lib.max_health
         self.width = lib.width
-        self.player_size = 50
+        self.player_size = 300
         self.image = pygame.transform.scale(
             pygame.image.load("src/player.png"), (self.player_size, self.player_size)
         )
@@ -35,7 +36,7 @@ class comet(pygame.sprite.Sprite):
     def __init__(self, game):
         super().__init__()
         self.game = game
-        self.comet_size = 30
+        self.comet_size = 150
         self.image = pygame.transform.scale(
             pygame.image.load("src/comet.png"),
             (self.comet_size, self.comet_size),
@@ -78,6 +79,6 @@ class comet(pygame.sprite.Sprite):
             or self.rect.top > lib.height
         ):
             self.kill()
-    
+
     def draw(self):
         self.game.screen.blit(self.image, (self.pos_x, self.pos_y))

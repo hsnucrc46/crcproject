@@ -28,6 +28,7 @@ pygame.init()
 
 quitgame = lib.quitgame
 
+
 class game:
     def __init__(self):
 
@@ -73,9 +74,18 @@ class game:
             self.events()
             self.screen.blit(self.ibackground, (0, 0))
             self.screen.blit(self.title_text, self.title_rect)
-            self.create_button(self.screen, "Start", self.width // 2 - 200, self.height // 3 * 2, 400, 160, "grey", (241, 250, 238), self.run)
+            self.create_button(
+                self.screen,
+                "Start",
+                self.width // 2 - 200,
+                self.height // 3 * 2,
+                400,
+                160,
+                "grey",
+                (241, 250, 238),
+                self.run,
+            )
             pygame.display.flip()
-
 
     def run(self):
         """
@@ -97,7 +107,7 @@ class game:
 
     def update(self):
 
-            # update countdown timer
+        # update countdown timer
         self.countdown_tick -= 1
         if self.player.health > 0 and self.countdown_tick <= 0:
             print("you won!")
@@ -121,18 +131,17 @@ class game:
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
-        self.sprites_group.draw(self.screen)
         self.draw_health_bar(self.screen, 10, 10, self.player.health)
+        self.sprites_group.draw(self.screen)
 
         # draw countdown timer
         self.time_left = self.countdown_tick // 60  # convert frames back to seconds
         self.time_text = self.time_font.render(
-            "time left: {}s".format(self.time_left), True, "white"
+            "Time Left: {} s".format(self.time_left), True, "white"
         )
         self.screen.blit(self.time_text, (self.width - 200, 10))
         pygame.display.flip()
 
 
 game = game()
-#if __name__ == "__intro__":
 game.intro()
