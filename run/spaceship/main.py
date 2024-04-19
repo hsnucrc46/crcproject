@@ -42,6 +42,7 @@ class game:
         self.min = lib.min
         self.max_time = lib.max_time
         self.timebar = lib.timebar
+        self.win = lib.win
         self.run()
 
     def events(self):
@@ -84,7 +85,7 @@ class game:
         self.screen.fill("black")
         self.player.draw()
         self.healthbar(self.screen)
-        self.timebar(self.screen, self.max_time, quitgame)
+        self.timebar(self.screen, self.max_time)
         self.comet_pool.draw()
         pygame.display.update()
 

@@ -18,7 +18,7 @@ height = get_monitors()[0].height
 width = get_monitors()[0].width
 max = 2000
 min = 250
-max_time = 30
+max_time = 1
 step = -10
 time = 0
 
@@ -130,8 +130,28 @@ def intro(clock, screen, action):
         pygame.display.update()
         clock.tick(fps)
 
+def win(screen, ):
+    print("you won!")
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+        screen.fill("black")
+        draw_text(screen, "You WIN!", 100, "white", width // 2, height // 2 - 100)
+        button(
+            screen,
+            "Exit",
+            width // 2 - 200,
+            height // 3 * 2,
+            400,
+            160,
+            "grey",
+            (241, 250, 238),
+            quitgame
+        )
+        pygame.display.flip()
 
-def timebar(screen, max_time, action):
+def timebar(screen, max_time):
     global time
     pygame.draw.rect(
         screen,
@@ -155,7 +175,7 @@ def timebar(screen, max_time, action):
             ),
         )
     else:
-        action()
+        win(screen)
     draw_text(
         screen,
         str(max_time - int(time / fps)),
