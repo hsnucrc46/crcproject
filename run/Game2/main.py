@@ -1,5 +1,5 @@
 """
-4/17
+4/19
 
 DONE : 
 1. click the start button to start the game
@@ -12,6 +12,7 @@ DONE :
 8. if the timer stops and the player's health is more than 0% -> print("You WIN") & display text on the screen
 9. the healthbar and timer is displayed on the screen
 10. changed the font (google font)
+11. if the time is less than 10s the speed of the stone will increase by 5 (10->15) 
 
 TO DO:
 1. make the player stay in the middle of the screen
@@ -30,9 +31,9 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 PLAYER_SIZE = 50
 STONE_SIZE = 30
-STONE_SPEED = 5
+STONE_SPEED = 10
 PLAYER_HEALTH = 100
-COUNTDOWN_SECONDS = 5
+COUNTDOWN_SECONDS = 30
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -41,14 +42,13 @@ LIGHT = (241, 250, 238)
 DARK_GRAY = (40, 40, 40)
 GRAY = (100, 100, 100)
 
-# Fonts
 BUTTON_FONT = pygame.font.Font("PixelifySans-VariableFont_wght.ttf", 30)
 TITLE_FONT = pygame.font.Font("PixelifySans-VariableFont_wght.ttf", 60)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Stone Defense Game")
 
-background_img = pygame.image.load("background.jpg")  # Load your background image here
+background_img = pygame.image.load("background.jpg") 
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 player_img = pygame.image.load("player.png")
 player_img = pygame.transform.scale(player_img, (PLAYER_SIZE, PLAYER_SIZE))
@@ -68,6 +68,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.center = pygame.mouse.get_pos()
+
 
 class Stone(pygame.sprite.Sprite):
     def __init__(self):
@@ -130,8 +131,8 @@ def create_button(surface, text, x, y, width, height, inactive_color, active_col
 
 def start_game():
     global countdown_timer, PLAYER_HEALTH
-    countdown_timer = COUNTDOWN_SECONDS * 60  # Reset countdown timer
-    PLAYER_HEALTH = 100  # Reset player health
+    countdown_timer = COUNTDOWN_SECONDS * 60
+    PLAYER_HEALTH = 100
 
     # Create sprites group
     # https://gamedevacademy.org/pygame-sprite-group-tutorial-complete-guide/
@@ -148,9 +149,11 @@ def start_game():
                 pygame.quit()
                 sys.exit()
 
-        # Update countdown timer
         win_font = pygame.font.Font("PixelifySans-VariableFont_wght.ttf", 50)
         countdown_timer -= 1
+        global STONE_SPEED
+        if countdown_timer <= 10:
+            STONE_SPEED = 15
         if countdown_timer <= 0:
             if PLAYER_HEALTH > 0:
                 win_text = win_font.render("You WIN!", True, WHITE)
@@ -175,7 +178,7 @@ def start_game():
         for hit in hits:
             PLAYER_HEALTH -= 10
 
-        screen.blit(background_img, (0, 0))  # Blit background image
+        screen.blit(background_img, (0, 0))
         all_sprites.draw(screen)
         draw_health_bar(screen, 10, 10, PLAYER_HEALTH)
 
