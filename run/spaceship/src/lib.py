@@ -18,7 +18,7 @@ height = get_monitors()[0].height
 width = get_monitors()[0].width
 max = 2000
 min = 250
-max_time = 100
+max_time = 120
 step = -10
 time = 0
 
