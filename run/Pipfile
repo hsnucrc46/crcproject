@@ -4,10 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+rich = "*"
 pygame = "*"
-screeninfo = "*"
 pydebug = "*"
 black = "*"
+isort = "*"
+screeninfo = "*"
 
 [dev-packages]
 
