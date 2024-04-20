@@ -35,11 +35,11 @@ def quitgame():
     quit()
 
 
-def draw_health_bar(surface, x, y, health):
+def draw_health_bar(surface, x, y, health, color):
     bar_length = 1000
     bar_height = 50
     fill = (health / 100) * bar_length
-    pygame.draw.rect(surface, "red", (x, y, fill, bar_height))
+    pygame.draw.rect(surface, color, (x, y, fill, bar_height))
     pygame.draw.rect(surface, "white", (x, y, bar_length, bar_height), 2)
 
 

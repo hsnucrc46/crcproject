@@ -23,7 +23,7 @@ class player(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(
             pygame.image.load("src/player.png"), (self.player_size, self.player_size)
         )
-        self.rect = self.image.get_rect(center=(self.width // 2, self.height // 2))
+        self.rect = self.image.get_rect()
 
     def update(self):
         self.rect.center = pygame.mouse.get_pos()

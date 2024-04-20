@@ -31,7 +31,6 @@ quitgame = lib.quitgame
 
 class game:
     def __init__(self):
-
         self.icon = pygame.image.load("src/icon.png")
         self.time_left = lib.max_time
         self.height = lib.height
@@ -41,7 +40,7 @@ class game:
         self.fps = lib.fps
         # fonts
         self.title_font = pygame.font.Font(None, 100)
-        self.time_font = pygame.font.Font(None, 40)
+        self.time_font = pygame.font.Font(None, 80)
         self.win_font = pygame.font.Font(None, 100)
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -109,7 +108,6 @@ class game:
                 quitgame()
 
     def update(self):
-
         # update countdown timer
         self.countdown_tick -= 1
         if self.player.health > 0 and self.countdown_tick <= 0:
@@ -133,7 +131,10 @@ class game:
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
-        self.draw_health_bar(self.screen, 10, 10, self.player.health)
+        if self.player.health <= 30:
+            self.draw_health_bar(self.screen, 10, 10, self.player.health, "red")
+        else:
+            self.draw_health_bar(self.screen, 10, 10, self.player.health, "green")
         self.sprites_group.draw(self.screen)
 
         # draw countdown timer
@@ -141,7 +142,7 @@ class game:
         self.time_text = self.time_font.render(
             "Time Left: {} s".format(self.time_left), True, "white"
         )
-        self.screen.blit(self.time_text, (self.width - 200, 10))
+        self.screen.blit(self.time_text, (self.width * 5 / 6, 10))
         pygame.display.flip()
 
     def win(self):
@@ -161,9 +162,10 @@ class game:
                 160,
                 "grey",
                 (241, 250, 238),
-                quitgame
+                quitgame,
             )
             pygame.display.flip()
+
 
 game = game()
 game.intro()
