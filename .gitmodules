@@ -1,4 +1,4 @@
 [submodule "run/123"]
 	path = run/123
-	url = https://github.com/olivertzeng/123
+	url = https://github.com/olivertzeng/123.git
 	branch = crcproject
