@@ -21,7 +21,7 @@ class player(pygame.sprite.Sprite):
         self.width = lib.width
         self.player_size = 300
         self.image = pygame.transform.scale(
-            pygame.image.load("src/player.png"), (self.player_size, self.player_size)
+            pygame.image.load("underlying/src/player.png"), (self.player_size, self.player_size)
         )
         self.rect = self.image.get_rect()
 
@@ -38,7 +38,7 @@ class comet(pygame.sprite.Sprite):
         self.game = game
         self.comet_size = 150
         self.image = pygame.transform.scale(
-            pygame.image.load("src/comet.png"),
+            pygame.image.load("underlying/src/comet.png"),
             (self.comet_size, self.comet_size),
         )
         self.rect = self.image.get_rect()

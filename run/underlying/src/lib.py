@@ -12,7 +12,7 @@ import pygame
 from rich import print
 from screeninfo import get_monitors
 
-caption = "Comet defense game"
+caption = "Level 1"
 color = "black"
 fps = 60
 max_health = 100

@@ -31,7 +31,7 @@ quitgame = lib.quitgame
 
 class game:
     def __init__(self):
-        self.icon = pygame.image.load("src/icon.png")
+        self.icon = pygame.image.load("underlying/src/icon.png")
         self.time_left = lib.max_time
         self.height = lib.height
         self.width = lib.width
@@ -47,7 +47,7 @@ class game:
         pygame.display.set_caption(self.caption)
 
         self.ibackground = pygame.transform.scale(
-            pygame.image.load("src/background.jpg"), (self.width, self.height)
+            pygame.image.load("underlying/src/background.jpg"), (self.width, self.height)
         )
 
         self.title_text = self.title_font.render(self.caption, True, "white")
