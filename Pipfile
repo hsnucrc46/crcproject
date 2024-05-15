@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 rich = "*"
 pygame = "*"
-pydebug = "*"
 black = "*"
 isort = "*"
 screeninfo = "*"
