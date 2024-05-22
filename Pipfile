@@ -9,6 +9,7 @@ pygame = "*"
 black = "*"
 isort = "*"
 screeninfo = "*"
+pydebug = "*"
 
 [dev-packages]
 
