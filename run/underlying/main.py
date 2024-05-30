@@ -11,18 +11,19 @@ done :
 7. there is a timer : 30 seconds
 8. if the timer stops and the player's health is more than 0% -> print("you won")
 9. the healthbar and timer is displayed on the screen
+10. make the player stay in the middle of the screen
+11. make the game full screen
+12. modularize the sprites and the functions
 
 TODO:
-    1. make the player stay in the middle of the screen
-2. make the game full screen
-3. make the shield to protect the player
-4. make a function to shoot comets
-5. modularize the sprites and the functions
+1. make the shield to protect the player
+2. make a function to shoot comets
 """
 
 import pygame
 import src.lib as lib
 import src.sprites as sprites
+import sys
 
 pygame.init()
 
@@ -47,13 +48,14 @@ class game:
         pygame.display.set_caption(self.caption)
 
         self.ibackground = pygame.transform.scale(
-                pygame.image.load("underlying/src/background.jpg"), (self.width, self.height)
-                )
+            pygame.image.load("underlying/src/background.jpg"),
+            (self.width, self.height),
+        )
 
         self.title_text = self.title_font.render(self.caption, True, "white")
         self.title_rect = self.title_text.get_rect(
-                center=(self.width // 2, self.height // 3)
-                )
+            center=(self.width // 2, self.height // 3)
+        )
         self.clock = pygame.time.Clock()
         self.in_intro = True
         self.playing = True
@@ -75,16 +77,16 @@ class game:
             self.screen.blit(self.ibackground, (0, 0))
             self.screen.blit(self.title_text, self.title_rect)
             self.create_button(
-                    self.screen,
-                    "Start",
-                    self.width // 2 - 200,
-                    self.height // 3 * 2,
-                    400,
-                    160,
-                    "grey",
-                    (241, 250, 238),
-                    self.run,
-                    )
+                self.screen,
+                "Start",
+                self.width // 2 - 200,
+                self.height // 3 * 2,
+                400,
+                160,
+                "grey",
+                (241, 250, 238),
+                self.run,
+            )
             pygame.display.flip()
 
     def run(self):
@@ -127,7 +129,7 @@ class game:
             hit.kill()
 
             if self.player.health <= 0:
-                quitgame()
+                sys.quit()
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image
@@ -140,8 +142,8 @@ class game:
         # draw countdown timer
         self.time_left = self.countdown_tick // 60  # convert frames back to seconds
         self.time_text = self.time_font.render(
-                "Time Left: {} s".format(self.time_left), True, "white"
-                )
+            "Time Left: {} s".format(self.time_left), True, "white"
+        )
         self.screen.blit(self.time_text, (self.width * 5 / 6, 10))
         pygame.display.flip()
 
@@ -154,16 +156,16 @@ class game:
             self.screen.blit(self.ibackground, (0, 0))
             self.screen.blit(win_text, win_rect)
             self.create_button(
-                    self.screen,
-                    "Exit",
-                    self.width // 2 - 200,
-                    self.height // 3 * 2,
-                    400,
-                    160,
-                    "grey",
-                    (241, 250, 238),
-                    quitgame,
-                    )
+                self.screen,
+                "Skip",
+                self.width // 2 - 200,
+                self.height // 3 * 2,
+                400,
+                160,
+                "grey",
+                (241, 250, 238),
+                quitgame,
+            )
             pygame.display.flip()
 
 

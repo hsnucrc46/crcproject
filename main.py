@@ -1,16 +1,30 @@
 import os
 import time
+import signal
 
 from rich import print
 from rich.markdown import Markdown
+from rich.progress import track
 
-os.system("cd run")
 
-with open("run/src/INTRO.md", encoding="utf8") as readme:
-    markdown = Markdown(readme.read())
-print(markdown)
+def signal_handler(sig, frame):
+    print("Keyboard interrupt detected. Exiting gracefully...")
+    exit(0)
 
-# time.sleep(10)
-os.system("python run/underlying/main.py")
-os.system("python run/spaceship/main.py")
-os.system("python run/123/123.py")
+
+signal.signal(signal.SIGINT, signal_handler)
+
+try:
+    os.chdir("run")
+
+    with open("src/INTRO.md", encoding="utf8") as readme:
+        markdown = Markdown(readme.read())
+    print(markdown)
+    for step in track(range(10)):
+        time.sleep(1)
+    os.system("python underlying/main.py")
+    os.system("python spaceship/main.py")
+    os.system("python 123/123.py")
+except KeyboardInterrupt:
+    print("Keyboard interrupt detected. Exiting gracefully...")
+    exit(0)
