@@ -129,7 +129,7 @@ class game:
             hit.kill()
 
             if self.player.health <= 0:
-                sys.quit()
+                sys.exit()
 
     def draw(self):
         self.screen.blit(self.ibackground, (0, 0))  # blit background image

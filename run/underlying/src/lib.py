@@ -6,8 +6,6 @@ Github: https://github.com/hsnucrc46
 Description: This file is a preference file, set your color, fps, player speed and more
 """
 
-import sys
-
 import pygame
 from rich import print
 from screeninfo import get_monitors

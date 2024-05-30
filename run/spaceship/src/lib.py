@@ -8,6 +8,7 @@ Description: This file is a preference file, set your color, fps, player speed a
 
 import pygame
 from rich import print
+import sys
 from screeninfo import get_monitors
 
 caption = "太空防衛戰"
@@ -28,6 +29,7 @@ def quitgame(point=-1):
         print("[b magenta]你輸了[/b magenta]:skull:，最後得了 0 分")
     elif not point == -1:
         print("[b magenta]你輸了[/b magenta]，最後得了", point, "分")
+        sys.exit()
     pygame.quit()
     quit()
 
@@ -118,7 +120,7 @@ def intro(clock, screen, action):
             return 0
         button(
             screen,
-            "Exit",
+            "Skip",
             width * 1 / 5,
             height * 2 / 3,
             width / 5,
@@ -130,7 +132,8 @@ def intro(clock, screen, action):
         pygame.display.update()
         clock.tick(fps)
 
-def win(screen, ):
+
+def win(screen):
     print("you won!")
     while True:
         for event in pygame.event.get():
@@ -147,21 +150,15 @@ def win(screen, ):
             160,
             "grey",
             (241, 250, 238),
-            quitgame
+            quitgame,
         )
         pygame.display.flip()
+
 
 def timebar(screen, max_time):
     global time
     pygame.draw.rect(
-        screen,
-        "dark red",
-        (
-            width * 9 / 10,
-            height / 5,
-            width / 50,
-            height * 2 / 5
-        )
+        screen, "dark red", (width * 9 / 10, height / 5, width / 50, height * 2 / 5)
     )
     if time < max_time * fps:
         pygame.draw.rect(
